@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GM Werewolf</string>
+
+    <string name="action_settings">Settings</string>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.kazuaki.gawerewollf" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/icon00"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.kazuaki.gawerewollf.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.kazuaki.gawerewollf.SettingScene"
+            android:label="@string/app_name"/>
+        <activity
+            android:name="com.example.kazuaki.gawerewollf.GameScene"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan"/>
+
+    </application>
+
+</manifest>
