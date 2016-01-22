@@ -46,6 +46,9 @@ public class GameScene extends Activity {
     public static ArrayList<ArrayList<Integer>> wolfkillArray;
     public static ArrayList<String> prePlayerList;//参加者リスト
 
+    public static boolean isGameScene = true;
+    public static String gamePhase;
+
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {    //戻るボタンの反応なくす
         if(event.getAction() == KeyEvent.ACTION_DOWN){
@@ -59,8 +62,8 @@ public class GameScene extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState){
-        phase = "player_setting";
-        scene = "game_scene";
+        gamePhase = "player_setting";
+        isGameScene = true;
         super.onCreate(savedInstanceState);
         initBackground();
         FrameLayout layout = new FrameLayout(this);
@@ -139,6 +142,51 @@ public class GameScene extends Activity {
         });
         layout.addView(listView);
     }
+
+
+        @Override
+        public boolean onTouchEvent(MotionEvent event){
+
+    //        String dialogText = "dialogText";
+    //
+    //        if(event.getAction() == MotionEvent.ACTION_DOWN && onDialog == true ){
+    //            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    //
+    //            switch (dialogPattern){
+    //                case "Seer":
+    //                    dialogText = String.format("%sさんを占いますか？","xxxx");//TODO String.formatを記入。リストで選択したプレイヤーのID
+    //                    break;
+    //                case "Werewolf":
+    //                    dialogText = String.format("%sさんを襲撃しますか？","wwww");
+    //                    break;
+    //                case "Bodyguard":
+    //                    dialogText = String.format("%さんを護衛しますか？","bbbb");
+    //                    break;
+    //                default:
+    //                    break;
+    //            }
+    //            builder.setMessage(dialogText)
+    //                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+    //                        public void onClick(DialogInterface dialog, int id) {
+    //// ボタンをクリックしたときの動作
+    //                            onDialog = false;
+    //                            settingPhase = "client_menu";
+    //                            customView.invalidate();
+    //
+    //                        }
+    //                    });
+    //            builder.setMessage(dialogText)
+    //                    .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
+    //                        public void onClick(DialogInterface dialog, int id) {
+    //// ボタンをクリックしたときの動作
+    //                        }
+    //                    });
+    //            builder.show();
+    //        }
+
+            return true;
+        }
+
     public static void setListAdapter(int type){
 //        names.clear();
 //        listSecondInfo.clear();
