@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -19,13 +20,15 @@ import static android.widget.LinearLayout.*;
 public class SettingScene extends Activity {
     public static void main(String[] args){}
 
-    public static Boolean isSettingScene;
+    public static boolean isSettingScene;
+    public static boolean isGameScene;
     public static String settingPhase;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         isSettingScene = true;
+        isGameScene = false;
         super.onCreate(savedInstanceState);
         FrameLayout layout = new FrameLayout(this);
         setContentView(layout);
@@ -43,7 +46,7 @@ public class SettingScene extends Activity {
 
        switch (actionId){
            case MotionEvent.ACTION_DOWN:
-               if(scene.equals("game_scene")){
+               if(isGameScene){
                    Intent intent = new Intent(SettingScene.this,GameScene.class);
                    startActivity(intent);
 
@@ -69,13 +72,13 @@ public class SettingScene extends Activity {
 //            return false;
 //        }
 //    }
-    public static void sendTextToLine(Context context, String lineComment){
-        try {
-            String lineString = "line://msg/text/" + lineComment;
-            Intent intent = Intent.parseUri(lineString, Intent.URI_INTENT_SCHEME);
-            context.startActivity(intent);
-        } catch (Exception e) {
-            //LINE投稿失敗
-        }
-    }
+//    public static void sendTextToLine(Context context, String lineComment){
+//        try {
+//            String lineString = "line://msg/text/" + lineComment;
+//            Intent intent = Intent.parseUri(lineString, Intent.URI_INTENT_SCHEME);
+//            context.startActivity(intent);
+//        } catch (Exception e) {
+//            //LINE投稿失敗
+//        }
+//    }
 }

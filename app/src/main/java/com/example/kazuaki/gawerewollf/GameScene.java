@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -47,7 +48,11 @@ public class GameScene extends Activity {
     public static ArrayList<String> prePlayerList;//参加者リスト
 
     public static boolean isGameScene = true;
+    public static boolean isSettingScene = false;
     public static String gamePhase;
+
+    public static boolean onDialog;
+    public static String dialogPattern;
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {    //戻るボタンの反応なくす
@@ -75,9 +80,9 @@ public class GameScene extends Activity {
 
         //EditText
         editText = new EditText(this);
-        LayoutParams editLP = new LayoutParams(customView.dp_width,customView.dp_height/10);
+        LayoutParams editLP = new LayoutParams(customView.width,customView.height/10);
         editLP.gravity = Gravity.BOTTOM;
-        editLP.bottomMargin = customView.dp_height*45/100;
+        editLP.bottomMargin = customView.height*45/100;
 
         prePlayerList = new ArrayList<>();
 
@@ -88,7 +93,7 @@ public class GameScene extends Activity {
 
         // ListView add
         listView = new ListView(this);
-        LayoutParams lp = new LayoutParams(customView.dp_width,customView.dp_height*4/10);
+        LayoutParams lp = new LayoutParams(customView.width,customView.height*4/10);
         lp.gravity = Gravity.BOTTOM;
         lp.bottomMargin = 0;
         selectedPlayerId = -2;

@@ -192,22 +192,6 @@ public class CustomView extends View {
                     canvas.drawText("推奨設定", width / 4, button2H + height * 6 / 100, paint);
                     //議論時間
                     canvas.drawBitmap(buttonImg, null, rectButton3, paint);
-<<<<<<< HEAD
-                    String textTime = String.format("議論時間：%d分", 5);//TODO
-                    canvas.drawText(textTime, canvas.getWidth() / 4, button3H + height * 6 / 100, paint);
-                    //初日占い
-                    canvas.drawBitmap(buttonImg, null, rectButton4, paint);
-                    String textSeer = String.format("初日占い：%s", "あり");//TODO
-                    canvas.drawText(textSeer, canvas.getWidth() / 4, button4H + height * 6/100, paint);
-                    //役かけ
-                    canvas.drawBitmap(buttonImg, null, rectButton5, paint);
-                    String textLack = String.format("役かけ：%s","なし");//TODO
-                    canvas.drawText(textLack, canvas.getWidth() / 4, button5H + height * 6/100,paint);
-                    //連続ガード
-                    canvas.drawBitmap(buttonImg,null,rectButton6,paint);
-                    String textBodyguard = String.format("連続ガード：%s","あり");//TODO
-                    canvas.drawText(textBodyguard, canvas.getWidth() / 4, button6H + height * 6/100,paint);
-=======
                     String textTime = String.format("議論時間：%d分", 5);//TODO 変更可能
                     canvas.drawText(textTime, width / 4, button3H + height * 6 / 100, paint);
                     //初日占い
@@ -222,7 +206,6 @@ public class CustomView extends View {
                     canvas.drawBitmap(buttonImg,null,rectButton6,paint);
                     String textBodyguard = String.format("連続ガード：%s","あり");//TODO 変更可能に
                     canvas.drawText(textBodyguard, width / 4, button6H + height * 6/100,paint);
->>>>>>> b5465412f038b6aa27ba76d314fc9084f3b9ee66
 
                     break;
 
@@ -650,7 +633,7 @@ public class CustomView extends View {
 //                String textTime = String.format("議論時間：%d分", 5);
 //                canvas.drawText(textTime, canvas.getWidth() / 4, button3H + height * 6 / 100, paint);
 //                //初日占い
-//                canvas.drawBitmap(buttonImg, null, rectButton4, paint);
+//   p]           canvas.drawBitmap(buttonImg, null, rectButton4, paint);
 //                String textSeer = String.format("初日占い：%s", "あり");
 //                canvas.drawText(textSeer, canvas.getWidth() / 4, button4H + height * 6/100, paint);
 //                //役かけ
