@@ -208,19 +208,19 @@ public class CustomView extends View {
                     canvas.drawText("推奨設定", width / 4, button2H + height * 6 / 100, paint);
                     //議論時間
                     canvas.drawBitmap(buttonImg, null, rectButton3, paint);
-                    String textTime = String.format("議論時間：%d分", 5);//TODO 変更可能
+                    String textTime = String.format("議論時間：%d分", meetingTime);//TODO 変更可能
                     canvas.drawText(textTime, width / 4, button3H + height * 6 / 100, paint);
                     //初日占い
                     canvas.drawBitmap(buttonImg, null, rectButton4, paint);
-                    String textSeer = String.format("初日占い：%s", "あり");// TODO 変更可能に
+                    String textSeer = String.format("初日占い：%s",setRuleText("seerMode"));// TODO 変更可能に
                     canvas.drawText(textSeer, width / 4, button4H + height * 6/100, paint);
                     //役かけ
                     canvas.drawBitmap(buttonImg, null, rectButton5, paint);
-                    String textLack = String.format("役かけ：%s","なし");//TODO 変更可能に
+                    String textLack = String.format("役かけ：%s",setRuleText("isLacking"));//TODO 変更可能に
                     canvas.drawText(textLack, width / 4, button5H + height * 6/100,paint);
                     //連続ガード
                     canvas.drawBitmap(buttonImg,null,rectButton6,paint);
-                    String textBodyguard = String.format("連続ガード：%s","あり");//TODO 変更可能に
+                    String textBodyguard = String.format("連続ガード：%s",setRuleText("canContinuousGuard"));//TODO 変更可能に
                     canvas.drawText(textBodyguard, width / 4, button6H + height * 6/100,paint);
 
                     break;
@@ -408,11 +408,51 @@ public class CustomView extends View {
 
     }
 
+    // ルール設定の変数宣言
+
+    public static boolean canContinuousGuard; //連続護衛有無
+    public static boolean isLacking; //役欠け有無
+    public static String seerMode; //初日占い
+    public static int meetingTime = 3; //議論時間
+
+    public static String setRuleText(String rule){
+        String ruleText = "";
+        switch (rule){
+            case "seerMode":
+                if(seerMode.equals("free")){
+                    ruleText = "あり";
+                }else if(seerMode.equals("none")){
+                    ruleText = "なし";
+                }else if(seerMode.equals("revelation")){
+                    ruleText = "お告げ";
+                }
+                break;
+            case "isLacking":
+                if(isLacking){
+                    ruleText = "あり";
+                }else {
+                    ruleText = "なし";
+                }
+                break;
+            case "canContinuousGuard":
+                if(canContinuousGuard){
+                    ruleText = "あり";
+                }else{
+                    ruleText = "なし";
+                }
+                break;
+            default:
+                ruleText = "";
+            break;
+        }
+        return ruleText;
+    }
+
+
     @Override
     public boolean onTouchEvent(MotionEvent event){
         float pointX = event.getX();
         float pointY = event.getY();
-
 
 
         switch (event.getAction()){
@@ -435,13 +475,66 @@ public class CustomView extends View {
                             break;
 
                         case "rule_setting":
-                            
+                            if(rectButton1.contains((int)pointX,(int)pointY)){ //戻る
+                                SettingScene.settingPhase = "setting_menu";
+
+                            }else if(rectButton2.contains((int)pointX,(int)pointY)){ // 推奨設定
+                                meetingTime = 5;
+                                seerMode = "free";
+                                canContinuousGuard = true;
+                                isLacking = false;
+
+                            }else if(rectButton3.contains((int)pointX,(int)pointY)){ // 議論時間
+                                if(meetingTime == 10){
+                                    meetingTime = 3;
+                                }else{
+                                    meetingTime++;
+                                }
+
+                            }else if(rectButton4.contains((int)pointX,(int)pointY)){ // 初日占い
+                                switch (seerMode){
+                                    case "free":
+                                        seerMode = "none";
+                                        break;
+                                    case "none":
+                                        seerMode = "revelation";
+                                        break;
+                                    case "revelation":
+                                        seerMode = "free";
+                                        break;
+                                    default:
+                                        break;
+                                }
+
+                            }else if(rectButton5.contains((int)pointX,(int)pointY)){ // 役かけ
+                                if(isLacking){
+                                    isLacking = false;
+                                }else{
+                                    isLacking = true;
+                                }
+
+                            }else if(rectButton6.contains((int)pointX,(int)pointY)){ // 連続ガード
+                                if(canContinuousGuard){
+                                    canContinuousGuard = false;
+                                }else{
+                                    canContinuousGuard = true;
+                                }
+                            }
                             break;
                         case "role _setting":
+                            if(rectButton1.contains((int)pointX,(int)pointY)){ //戻る
+                                SettingScene.settingPhase = "setting_menu";
+                            }
                             break;
                         case "player_setting":
+                            if(rectButton1.contains((int)pointX,(int)pointY)) { //戻る
+                                SettingScene.settingPhase = "setting_menu";
+                            }
                             break;
                         case "explain":
+                            if(rectButton1.contains((int)pointX,(int)pointY)) { //戻る
+                                SettingScene.settingPhase = "setting_menu";
+                            }
                             break;
                         default:
                             break;
@@ -458,10 +551,7 @@ public class CustomView extends View {
             default:
                 return true;
         }
-        if(!settingPhase.equals("rule_confirm")){
             invalidate();
-        }
-
         return false;
 
     }

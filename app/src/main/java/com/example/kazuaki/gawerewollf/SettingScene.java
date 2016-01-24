@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,17 @@ public class SettingScene extends Activity {
     public static boolean isSettingScene;
     public static boolean isGameScene;
     public static String settingPhase;
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {    //戻るボタンの反応なくす
+        if(event.getAction() == KeyEvent.ACTION_DOWN){
+            switch (event.getKeyCode()){
+                case KeyEvent.KEYCODE_BACK:
+                    return true;
+            }
+        }
+        return super.dispatchKeyEvent(event);
+    }
 
 
     @Override

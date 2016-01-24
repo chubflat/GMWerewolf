@@ -7,6 +7,7 @@ import java.util.Map;
  * Created by Kazuaki on 2015/11/16.
  */
 public class Utility{
+
     public static enum Role{
         /* TODO 役職追加時 */
         Villager,
