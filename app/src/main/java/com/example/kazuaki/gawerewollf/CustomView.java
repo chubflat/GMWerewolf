@@ -166,10 +166,7 @@ public class CustomView extends View {
 
         backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.afternoon,bitmapWidth,bitmapHeight);
         canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
-
-        // default List非表示
-//        GameScene.drawListView(false);
-
+        
         if(isSettingScene){
             switch (settingPhase){
 
@@ -257,6 +254,12 @@ public class CustomView extends View {
                     //プレイヤー追加
                     canvas.drawBitmap(buttonImg,null,rectButton2, paint);
                     canvas.drawText("プレイヤー追加", width / 4, button2H + height * 6 / 100, paint);
+                    //プレイヤー数表示
+                    playerVolume = String.format("プレイヤー数：%d人",8);// TODO 人数表示
+                    paint.setColor(Color.WHITE);
+                    textSize = (float)height * 6 / 100;
+                    paint.setTextSize(textSize);
+                    canvas.drawText(playerVolume, width * 5 / 100, height * 10 / 100 ,paint);
                     //playerListView表示
                     SettingScene.drawListView(SettingScene.playerListView,true);
                     break;

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -15,9 +16,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static android.widget.LinearLayout.*;
 
@@ -35,6 +39,8 @@ public class SettingScene extends Activity {
     public static CustomView customView;
 
     public static ListView playerListView;
+    public static SimpleAdapter adapter;
+    public static List<Map<String,String>> listInfoDicArray;//リスト情報のMap
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {    //戻るボタンの反応なくす
@@ -60,9 +66,18 @@ public class SettingScene extends Activity {
         layout.addView(customView);
 
         playerListView = new ListView(this);
-        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(customView.width,customView.height*4/10);
-        lp.gravity = Gravity.TOP;
-        lp.topMargin = customView.height * 20 / 100;
+        FrameLayout.LayoutParams centerListLp = new FrameLayout.LayoutParams(customView.width,customView.height*4/10);
+        centerListLp.gravity = Gravity.TOP;
+        centerListLp.topMargin = customView.height * 20 / 100;
+
+        playerListView.setLayoutParams(centerListLp);
+        listInfoDicArray = new ArrayList<Map<String,String>>();
+
+        adapter = new SimpleAdapter(this,listInfoDicArray,android.R.layout.simple_list_item_2,new String[]{"name","listSecondInfo"},new int[]{android.R.id.text1,android.R.id.text2});
+
+        playerListView.setAdapter(adapter);
+        playerListView.setBackgroundColor(Color.WHITE);
+        layout.addView(playerListView);
 
     }
 
