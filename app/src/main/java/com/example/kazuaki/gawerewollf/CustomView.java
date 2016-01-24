@@ -80,6 +80,8 @@ public class CustomView extends View {
     public static Rect rectButton6;
     public static String playerVolume;
 
+
+
     //TODO Canvasに新要素追加時
 
     public CustomView(Context context) {
@@ -101,15 +103,8 @@ public class CustomView extends View {
         }
         return super.dispatchKeyEvent(event);
     }
-    @Override
-    protected void onDraw(Canvas canvas){
-        canvas.drawColor(0, PorterDuff.Mode.CLEAR);
-        Paint paint = new Paint();
-        textSize = (float)height * 4 / 100 ;
 
-        paint.setTextSize(textSize);
-        paint.setColor(Color.BLACK);
-
+    public void initBackground(){
         // Bitmap初期化
         bitmapWidth = width;
         bitmapHeight = height;
@@ -123,15 +118,26 @@ public class CustomView extends View {
 
         //SettingScene用Rect初期化
         backgroundRect = new Rect(0,0,bitmapWidth,bitmapHeight);
-        clientButtonRect = new Rect(width * 10 / 100 ,height * 50 / 100,width * 90 / 100 ,height * 60 / 100);
-        userSettingButtonRect = new Rect(width * 10 / 100 ,height * 65 / 100,width * 90 / 100 ,height * 75 / 100);
+//        clientButtonRect = new Rect(width * 10 / 100 ,height * 50 / 100,width * 90 / 100 ,height * 60 / 100);
+//        userSettingButtonRect = new Rect(width * 10 / 100 ,height * 65 / 100,width * 90 / 100 ,height * 75 / 100);
 
         //GameScene用Rect初期化
-        confirmButtonRect = new Rect(width * 10 / 100 ,height * 80 / 100,width * 90 / 100 ,height * 90 / 100);
-        actionButtonRect = new Rect (width * 75 / 100 ,height * 5 / 100,width * 95 / 100 ,height * 20 / 100);
-        topTextRect = new Rect(width * 20 / 100 ,height * 5 / 100,width * 80 / 100 ,height * 15 / 100);
-        roleCardRect = new Rect(width * 5 / 100, height * 5/100 ,width * 20 / 100 ,height * 20 / 100);
-        timerRect = new Rect(width * 22 / 100, height * 5/100 ,width * 70 / 100 ,height * 20 / 100);
+//        confirmButtonRect = new Rect(width * 10 / 100 ,height * 80 / 100,width * 90 / 100 ,height * 90 / 100);
+//        actionButtonRect = new Rect (width * 75 / 100 ,height * 5 / 100,width * 95 / 100 ,height * 20 / 100);
+//        topTextRect = new Rect(width * 20 / 100 ,height * 5 / 100,width * 80 / 100 ,height * 15 / 100);
+//        roleCardRect = new Rect(width * 5 / 100, height * 5/100 ,width * 20 / 100 ,height * 20 / 100);
+//        timerRect = new Rect(width * 22 / 100, height * 5/100 ,width * 70 / 100 ,height * 20 / 100);
+
+    }
+    @Override
+    protected void onDraw(Canvas canvas){
+        canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+        Paint paint = new Paint();
+        textSize = (float)height * 4 / 100 ;
+
+        paint.setTextSize(textSize);
+        paint.setColor(Color.BLACK);
+
 
 
         int button1H = height * 82 / 100;//TODO ボタン位置変更時
@@ -148,6 +154,9 @@ public class CustomView extends View {
         rectButton5 = new Rect(width*10/100,button5H,width*90/100,button5H + height*10/100);
         rectButton6 = new Rect(width*10/100,button6H,width*90/100,button6H + height*10/100);
 
+        //SettingScene のボタン整理
+
+        initBackground();
         //TODO GameSceneとの共有変数の初期化
         setSameVariable();
 
@@ -182,9 +191,9 @@ public class CustomView extends View {
                     //プレイヤー数表示
                     playerVolume = String.format("プレイヤー数：%d人",8);
                     paint.setColor(Color.WHITE);
-                    textSize = (float)height * 7 / 100;
+                    textSize = (float)height * 6 / 100;
                     paint.setTextSize(textSize);
-                    canvas.drawText(playerVolume, width * 10 / 100, height * 10 / 100 ,paint);
+                    canvas.drawText(playerVolume, width * 5 / 100, height * 10 / 100 ,paint);
                     break;
 
                 case "rule_setting":
@@ -228,9 +237,9 @@ public class CustomView extends View {
                     //プレイヤー数表示
                     playerVolume = String.format("プレイヤー数：%d人",8);
                     paint.setColor(Color.WHITE);
-                    textSize = (float)height * 7 / 100;
+                    textSize = (float)height * 6 / 100;
                     paint.setTextSize(textSize);
-                    canvas.drawText(playerVolume, width * 10 / 100, height * 10 / 100 ,paint);
+                    canvas.drawText(playerVolume, width * 5 / 100, height * 10 / 100 ,paint);
 
                     break;
 
@@ -241,9 +250,9 @@ public class CustomView extends View {
                     //戻る
                     canvas.drawBitmap(buttonImg, null, rectButton1,paint);
                     canvas.drawText("戻る", width / 4, button1H + height * 6 / 100, paint);
-                    //シャッフル
+                    //プレイヤー追加
                     canvas.drawBitmap(buttonImg,null,rectButton2, paint);
-                    canvas.drawText("シャッフル", width / 4, button2H + height * 6 / 100, paint);
+                    canvas.drawText("プレイヤー追加", width / 4, button2H + height * 6 / 100, paint);
                     break;
 
                 case "explain":
@@ -411,26 +420,28 @@ public class CustomView extends View {
                 if(isSettingScene){
                     switch (settingPhase){
                         case "setting_menu":
-                            if(clientButtonRect.contains((int)pointX,(int)pointY)){
-                                setDialog("Seer");
-                                SettingScene.settingPhase = "client_menu";
-                            }
-                            break;
-                        case "client_menu":
-                            if(confirmButtonRect.contains((int)pointX,(int)pointY)){
-                                setDialog("Werewolf");
-                                SettingScene.settingPhase = "rule_confirm";
-//                                GameScene.scene = "game_scene";
-                                //コメントアウト
-//                                GameScene.settingPhase = "setting_menu";
-                            }
-                            break;
-                        case "rule_confirm":
-                            if(confirmButtonRect.contains((int)pointX,(int)pointY)){
-                                SettingScene.isSettingScene = true;
+                            if(rectButton1.contains((int)pointX,(int)pointY)){ //スタートボタン
+                                setDialog("start");
+                                SettingScene.isSettingScene = false;
                                 SettingScene.isGameScene = true;
-                            }
+//                                SettingScene.settingPhase = "client_menu";
+                            }else if(rectButton2.contains((int)pointX,(int)pointY)){ // ルール設定
+                                SettingScene.settingPhase = "rule_setting";
+                            }else if(rectButton3.contains((int)pointX,(int)pointY)){ // 配役設定
+                                SettingScene.settingPhase = "role_setting";
+                            }else if(rectButton4.contains((int)pointX,(int)pointY)){ // プレイヤー設定
+                                SettingScene.settingPhase = "player_setting";
+                            } // TODO 役職説明追加
+                            break;
 
+                        case "rule_setting":
+                            
+                            break;
+                        case "role _setting":
+                            break;
+                        case "player_setting":
+                            break;
+                        case "explain":
                             break;
                         default:
                             break;
