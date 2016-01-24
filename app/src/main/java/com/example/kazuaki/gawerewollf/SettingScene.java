@@ -37,27 +37,26 @@ public class SettingScene extends Activity {
 
     }
 
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event){
-//        int actionId = event.getAction();
-//
-//        switch (actionId){
-//            case MotionEvent.ACTION_DOWN:
-//                if(scene.equals("game_scene")){
-//                    Intent intent = new Intent(SettingScene.this,GameScene.class);
-//                    startActivity(intent);
-//                    Log.d("test", "test++=");
-//
-//                }else{
-//
-//                }
-//                break;
-//            default:
-//                break;
-//        }
-//        return super.onTouchEvent(event);
-//
-//    }
+   @Override
+   public boolean onTouchEvent(MotionEvent event){
+       int actionId = event.getAction();
+
+       switch (actionId){
+           case MotionEvent.ACTION_DOWN:
+               if(scene.equals("game_scene")){
+                   Intent intent = new Intent(SettingScene.this,GameScene.class);
+                   startActivity(intent);
+
+               }else{
+
+               }
+               break;
+           default:
+               break;
+       }
+       return super.onTouchEvent(event);
+
+   }
 
 //    public static boolean appInstalled(Context context, String uri)
 //    {

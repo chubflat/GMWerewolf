@@ -159,7 +159,7 @@ public class CustomView extends View {
                     // 背景
                     backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.afternoon,bitmapWidth,bitmapHeight);
                     canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
-//                //スタート
+                    //スタート
                     canvas.drawBitmap(buttonImg,null,rectButton1,paint);
                     canvas.drawText("スタート", canvas.getWidth() / 4, button1H + height * 6/100,paint);
                     //ルール設定
@@ -178,7 +178,6 @@ public class CustomView extends View {
                     playerVolume = String.format("プレイヤー数：%d人",8);
                     paint.setColor(Color.WHITE);
                     canvas.drawText(playerVolume, width * 20 / 100, height * 10 / 100 ,paint);
-//
                     break;
 
                 case "rule_setting":
@@ -187,12 +186,13 @@ public class CustomView extends View {
                     canvas.drawBitmap(backgroundImg, null, backgroundRect, paint);
                     //戻る
                     canvas.drawBitmap(buttonImg, null, rectButton1,paint);
-                    canvas.drawText("戻る", canvas.getWidth() / 4, button1H + height * 6 / 100, paint);
+                    canvas.drawText("戻る", width / 4, button1H + height * 6 / 100, paint);
                     //推奨設定
                     canvas.drawBitmap(buttonImg,null,rectButton2, paint);
-                    canvas.drawText("推奨設定", canvas.getWidth() / 4, button2H + height * 6 / 100, paint);
+                    canvas.drawText("推奨設定", width / 4, button2H + height * 6 / 100, paint);
                     //議論時間
                     canvas.drawBitmap(buttonImg, null, rectButton3, paint);
+<<<<<<< HEAD
                     String textTime = String.format("議論時間：%d分", 5);//TODO
                     canvas.drawText(textTime, canvas.getWidth() / 4, button3H + height * 6 / 100, paint);
                     //初日占い
@@ -207,6 +207,22 @@ public class CustomView extends View {
                     canvas.drawBitmap(buttonImg,null,rectButton6,paint);
                     String textBodyguard = String.format("連続ガード：%s","あり");//TODO
                     canvas.drawText(textBodyguard, canvas.getWidth() / 4, button6H + height * 6/100,paint);
+=======
+                    String textTime = String.format("議論時間：%d分", 5);//TODO 変更可能
+                    canvas.drawText(textTime, width / 4, button3H + height * 6 / 100, paint);
+                    //初日占い
+                    canvas.drawBitmap(buttonImg, null, rectButton4, paint);
+                    String textSeer = String.format("初日占い：%s", "あり");// TODO 変更可能に
+                    canvas.drawText(textSeer, width / 4, button4H + height * 6/100, paint);
+                    //役かけ
+                    canvas.drawBitmap(buttonImg, null, rectButton5, paint);
+                    String textLack = String.format("役かけ：%s","なし");//TODO 変更可能に
+                    canvas.drawText(textLack, width / 4, button5H + height * 6/100,paint);
+                    //連続ガード
+                    canvas.drawBitmap(buttonImg,null,rectButton6,paint);
+                    String textBodyguard = String.format("連続ガード：%s","あり");//TODO 変更可能に
+                    canvas.drawText(textBodyguard, width / 4, button6H + height * 6/100,paint);
+>>>>>>> b5465412f038b6aa27ba76d314fc9084f3b9ee66
 
                     break;
 
@@ -243,42 +259,9 @@ public class CustomView extends View {
                     canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
                     //戻る
                     canvas.drawBitmap(buttonImg, null, rectButton1,paint);
-                    canvas.drawText("戻る", canvas.getWidth() / 4, button1H + height * 6 / 100, paint);
+                    canvas.drawText("戻る", width / 4, button1H + height * 6 / 100, paint);
                     break;
 
-                case "client_menu":
-//                    //TODO Client設定 部屋探索
-//                        /*
-//                        * bluetoothで部屋のIDを受信
-//                        * リストに表示
-//                        * リストの中身を選択したら待機画面に*/
-//
-//                    confirmButtonRect = new Rect(width * 10 / 100 ,height * 80 / 100,width * 90 / 100 ,height * 90 / 100);
-////                    backgroundImg = BitmapFactory.decodeResource(getResources(),R.drawable.night);
-//                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.night,bitmapWidth,bitmapHeight);
-//                    canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
-//                    paint.setColor(Color.WHITE);
-//                    canvas.drawText("ルール設定待ち",width * 30/100,height * 50 / 100,paint);
-//
-//                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
-//                    canvas.drawText("次へ",width * 25/100,height * 85/100,paint);
-
-                    break;
-                case "rule_confirm":
-//                    // background
-//                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.afternoon,bitmapWidth,bitmapHeight);
-//                    canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
-//                    //topText
-//                    canvas.drawBitmap(timerFrameImg,null,topTextRect,paint);
-//                    canvas.drawText("ルール",width * 30/100,height * 10/100,paint);
-//
-//                    // TODO List表示
-//                    // 2行リスト GameSceneに記述
-//
-//                    //confirmButton
-//                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
-//                    canvas.drawText("確認",width * 25/100,height * 85/100,paint);
-                    break;
                 default:
                     break;
             }
@@ -288,6 +271,10 @@ public class CustomView extends View {
             canvas.drawBitmap(backgroundImg, null, backgroundRect, paint);
 
             switch (gamePhase){
+
+              case "role_check":
+              break;
+
                 case "night_roleRotate":
                     // rotateImg 表示
                     Rect rotateCardRect = new Rect(width * 15 /100,height * 20 / 100 ,width * 85 / 100 ,height *20 /100 + width * 70 / 100  * 1125 /938 );
@@ -324,10 +311,6 @@ public class CustomView extends View {
                     mTextLayout.draw(canvas);
                     canvas.restore();
 
-
-
-
-
                     canvas.drawBitmap(frameImg,null,belowFrameRect,paint);
                     canvas.drawBitmap(roleImg, null, roleCheckCardRect, paint);
                     // confirm button
@@ -355,7 +338,7 @@ public class CustomView extends View {
 
                 case "morning":
                     // background
-                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.morning,bitmapWidth,bitmapHeight);
+                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.evening,bitmapWidth,bitmapHeight);
                     canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 
                     canvas.drawBitmap(roleImg,null,roleCardRect,paint);
