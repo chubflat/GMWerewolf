@@ -20,6 +20,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +42,7 @@ public class SettingScene extends Activity {
     public static ListView playerListView;
     public static SimpleAdapter adapter;
     public static List<Map<String,String>> listInfoDicArray;//リスト情報のMap
+    public static ArrayList<String> listArray;
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {    //戻るボタンの反応なくす
@@ -66,6 +68,8 @@ public class SettingScene extends Activity {
         layout.addView(customView);
 
         playerListView = new ListView(this);
+        listArray = new ArrayList<>();
+
         FrameLayout.LayoutParams centerListLp = new FrameLayout.LayoutParams(customView.width,customView.height*4/10);
         centerListLp.gravity = Gravity.TOP;
         centerListLp.topMargin = customView.height * 20 / 100;
@@ -120,7 +124,26 @@ public class SettingScene extends Activity {
                                .setPositiveButton("追加", new DialogInterface.OnClickListener() {
                                    @Override
                                    public void onClick(DialogInterface dialog, int which) {
-                                       Toast.makeText(SettingScene.this,addPlayerView.getText().toString(),Toast.LENGTH_LONG).show();
+//                                       Toast.makeText(SettingScene.this, addPlayerView.getText().toString(), Toast.LENGTH_LONG).show();
+
+                                       String text = addPlayerView.getText().toString();
+                                       if(!(text.equals(""))){
+                                           listArray.add(text);
+                                       }
+
+                                       listInfoDicArray.clear();
+
+                                       for (int i = 0; i < listArray.size(); i++) {
+
+                                           Map<String,String> conMap = new HashMap<>();
+                                           conMap.put("name",listArray.get(i));
+                                           conMap.put("listSecondInfo","");
+                                           listInfoDicArray.add(conMap);
+                                       }
+
+                                       playerListView.invalidateViews();
+//                                       // 中身クリア
+//                                       GameScene.editText.getEditableText().clear();
                                    }
                                })
                                .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
