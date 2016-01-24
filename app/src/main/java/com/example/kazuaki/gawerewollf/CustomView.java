@@ -255,7 +255,7 @@ public class CustomView extends View {
                     canvas.drawBitmap(buttonImg,null,rectButton2, paint);
                     canvas.drawText("プレイヤー追加", width / 4, button2H + height * 6 / 100, paint);
                     //プレイヤー数表示
-                    playerVolume = String.format("プレイヤー数：%d人",8);// TODO 人数表示
+                    playerVolume = String.format("プレイヤー数：%d人",SettingScene.listArray.size());// TODO 人数表示
                     paint.setColor(Color.WHITE);
                     textSize = (float)height * 6 / 100;
                     paint.setTextSize(textSize);

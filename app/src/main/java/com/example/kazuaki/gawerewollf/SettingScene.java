@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -43,6 +44,8 @@ public class SettingScene extends Activity {
     public static SimpleAdapter adapter;
     public static List<Map<String,String>> listInfoDicArray;//リスト情報のMap
     public static ArrayList<String> listArray;
+
+    public static int selectedPlayerId;
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {    //戻るボタンの反応なくす
@@ -81,6 +84,52 @@ public class SettingScene extends Activity {
 
         playerListView.setAdapter(adapter);
         playerListView.setBackgroundColor(Color.WHITE);
+        playerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            }
+//                if (phase.equals("player_setting")) {
+//                    selectedPlayerId = -2;
+//                } else {
+//                    selectedPlayerId = listPlayerIdArray.get(position);
+//                }
+//
+//                if (phase.equals("player_setting")) {
+//
+//                }
+//                else {
+//                    if (nowPlayer < playerArray.size() && playerArray.get(nowPlayer).get("roleId") == Utility.Role.Werewolf) {
+//                        if (isFirstNight) {//人狼：初日の夜はタッチできない
+//                            if (selectedPlayerId == -1) {
+//                                goNextPhase();
+//                                customView.invalidate();
+//                            }
+//
+//                        } else {// 人狼：2日目以降タッチされたplayerIdを渡して再描画
+//                            wolfkill(selectedPlayerId, 0);
+//                            goNextPhase();
+//                            customView.invalidate();
+//                        }
+//                    } else if (nowPlayer < playerArray.size() && playerArray.get(nowPlayer).get("roleId") == Utility.Role.Bodyguard) {
+//                        bodyguardId = selectedPlayerId;
+//                        goNextPhase();
+//                        customView.invalidate();
+//                    } else {
+//                        goNextPhase();
+//                        customView.invalidate();
+//                    }
+//                }
+//            }
+
+        });
+        // TODO 長押しで削除
+        playerListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> parent,
+                                                   View view, int position, long id) {
+                    }
+                });
+
         layout.addView(playerListView);
 
     }
