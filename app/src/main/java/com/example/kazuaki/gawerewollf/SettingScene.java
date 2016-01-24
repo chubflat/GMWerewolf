@@ -1,7 +1,9 @@
 package com.example.kazuaki.gawerewollf;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -24,6 +27,8 @@ public class SettingScene extends Activity {
     public static boolean isSettingScene;
     public static boolean isGameScene;
     public static String settingPhase;
+    public static boolean onDialog = false;
+    public static String dialogPattern;
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {    //戻るボタンの反応なくす
@@ -67,9 +72,74 @@ public class SettingScene extends Activity {
            default:
                break;
        }
-       return super.onTouchEvent(event);
+
+       String dialogText = "dialogText";
+
+               if(event.getAction() == MotionEvent.ACTION_DOWN && onDialog == true ){
+                   AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                   if(dialogPattern.equals("addPlayer")){
+                       final EditText addPlayerView = new EditText(SettingScene.this);
+                        builder.setTitle("追加するプレイヤー名を記入してください")
+                               //setViewにてビューを設定
+                               .setView(addPlayerView)
+                               .setPositiveButton("追加", new DialogInterface.OnClickListener() {
+                                   @Override
+                                   public void onClick(DialogInterface dialog, int which) {
+                                       Toast.makeText(SettingScene.this,addPlayerView.getText().toString(),Toast.LENGTH_LONG).show();
+                                   }
+                               })
+                               .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
+                                   @Override
+                                   public void onClick(DialogInterface dialog, int which) {
+
+                                   }
+                               })
+                               .show();
+
+                       dialogPattern = "";
+
+                   }else{
+
+                       //            switch (dialogPattern){
+                       //                case "Seer":
+                       //                    dialogText = String.format("%sさんを占いますか？","xxxx");//TODO String.formatを記入。リストで選択したプレイヤーのID
+                       //                    break;
+                       //                case "Werewolf":
+                       //                    dialogText = String.format("%sさんを襲撃しますか？","wwww");
+                       //                    break;
+                       //                case "Bodyguard":
+                       //                    dialogText = String.format("%さんを護衛しますか？","bbbb");
+                       //                    break;
+                       //                default:
+                       //                    break;
+                       //            }
+                       //            builder.setMessage(dialogText)
+                       //                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                       //                        public void onClick(DialogInterface dialog, int id) {
+                       //// ボタンをクリックしたときの動作
+                       //                            onDialog = false;
+                       //                            settingPhase = "client_menu";
+                       //                            customView.invalidate();
+                       //
+                       //                        }
+                       //                    });
+                       //            builder.setMessage(dialogText)
+                       //                    .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
+                       //                        public void onClick(DialogInterface dialog, int id) {
+                       //// ボタンをクリックしたときの動作
+                       //                        }
+                       //                    });
+                       //            builder.show();
+                       //        }
+                   }
+
+               }
+
+       return true;
 
    }
+
 
 
     public void initBackground(){
