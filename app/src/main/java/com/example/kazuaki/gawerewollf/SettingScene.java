@@ -27,8 +27,7 @@ public class SettingScene extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState){
-        isSettingScene = true;
-        isGameScene = false;
+        initBackground();
         super.onCreate(savedInstanceState);
         FrameLayout layout = new FrameLayout(this);
         setContentView(layout);
@@ -36,7 +35,6 @@ public class SettingScene extends Activity {
         //custom add
         final CustomView customView = new CustomView(this);
         layout.addView(customView);
-
 
     }
 
@@ -60,6 +58,13 @@ public class SettingScene extends Activity {
        return super.onTouchEvent(event);
 
    }
+
+
+    public void initBackground(){
+        isSettingScene = true;
+        isGameScene = false;
+        settingPhase ="setting_menu";
+    }
 
 //    public static boolean appInstalled(Context context, String uri)
 //    {
