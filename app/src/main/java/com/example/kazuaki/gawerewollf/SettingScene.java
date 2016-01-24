@@ -14,7 +14,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.List;
 
 import static android.widget.LinearLayout.*;
 
@@ -30,6 +33,8 @@ public class SettingScene extends Activity {
     public static boolean onDialog = false;
     public static String dialogPattern;
     public static CustomView customView;
+
+    public static ListView playerListView;
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {    //戻るボタンの反応なくす
@@ -54,6 +59,19 @@ public class SettingScene extends Activity {
         customView = new CustomView(this);
         layout.addView(customView);
 
+        playerListView = new ListView(this);
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(customView.width,customView.height*4/10);
+        lp.gravity = Gravity.TOP;
+        lp.topMargin = customView.height * 20 / 100;
+
+    }
+
+    public static void drawListView(ListView listView,boolean visible){
+        if(visible == true) {
+            listView.setVisibility(View.VISIBLE);
+        }else if(visible == false){
+            listView.setVisibility(View.INVISIBLE);
+        }
     }
 
    @Override
@@ -127,7 +145,7 @@ public class SettingScene extends Activity {
                                    builder.setMessage(dialogText)
                                            .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
                                                public void onClick(DialogInterface dialog, int id) {
-                       // ボタンをクリックしたときの動作
+                                                   // ボタンをクリックしたときの動作
                                                }
                                            });
                                    builder.show();

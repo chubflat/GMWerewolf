@@ -128,7 +128,11 @@ public class CustomView extends View {
 //        roleCardRect = new Rect(width * 5 / 100, height * 5/100 ,width * 20 / 100 ,height * 20 / 100);
 //        timerRect = new Rect(width * 22 / 100, height * 5/100 ,width * 70 / 100 ,height * 20 / 100);
 
+        SettingScene.drawListView(SettingScene.playerListView,false);
+
     }
+
+
     @Override
     protected void onDraw(Canvas canvas){
         canvas.drawColor(0, PorterDuff.Mode.CLEAR);
@@ -253,6 +257,8 @@ public class CustomView extends View {
                     //プレイヤー追加
                     canvas.drawBitmap(buttonImg,null,rectButton2, paint);
                     canvas.drawText("プレイヤー追加", width / 4, button2H + height * 6 / 100, paint);
+                    //playerListView表示
+                    SettingScene.drawListView(SettingScene.playerListView,true);
                     break;
 
                 case "explain":
