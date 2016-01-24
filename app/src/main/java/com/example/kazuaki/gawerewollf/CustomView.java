@@ -15,6 +15,7 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -43,6 +44,8 @@ public class CustomView extends View {
 
     public static int bitmapWidth;
     public static int bitmapHeight;
+
+    public static float textSize;
 
     //SettingScene用
     public static Rect backgroundRect;
@@ -102,7 +105,9 @@ public class CustomView extends View {
     protected void onDraw(Canvas canvas){
         canvas.drawColor(0, PorterDuff.Mode.CLEAR);
         Paint paint = new Paint();
-        paint.setTextSize(50);
+        textSize = (float)height * 4 / 100 ;
+
+        paint.setTextSize(textSize);
         paint.setColor(Color.BLACK);
 
         // Bitmap初期化
@@ -158,26 +163,28 @@ public class CustomView extends View {
                 case "setting_menu":
                     // 背景
                     backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.afternoon,bitmapWidth,bitmapHeight);
-                    canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
+                    canvas.drawBitmap(backgroundImg, null, backgroundRect, paint);
                     //スタート
                     canvas.drawBitmap(buttonImg,null,rectButton1,paint);
-                    canvas.drawText("スタート", canvas.getWidth() / 4, button1H + height * 6/100,paint);
+                    canvas.drawText("スタート", width / 4, button1H + height * 6/100,paint);
                     //ルール設定
                     canvas.drawBitmap(buttonImg,null,rectButton2,paint);
-                    canvas.drawText("ルール設定", canvas.getWidth() / 4,button2H + height * 6/100, paint);
+                    canvas.drawText("ルール設定", width / 4,button2H + height * 6/100, paint);
                     //配役設定
                     canvas.drawBitmap(buttonImg,null,rectButton3,paint);
-                    canvas.drawText("配役設定", canvas.getWidth() / 4, button3H + height * 6/100, paint);
+                    canvas.drawText("配役設定", width / 4, button3H + height * 6/100, paint);
                     //プレイヤー設定
                     canvas.drawBitmap(buttonImg,null,rectButton4,paint);
-                    canvas.drawText("プレイヤー設定", canvas.getWidth() / 4, button4H +height * 6/100, paint);
+                    canvas.drawText("プレイヤー設定", width / 4, button4H +height * 6/100, paint);
                     //役職一覧
                     canvas.drawBitmap(buttonImg,null,rectButton5,paint);
-                    canvas.drawText("役職説明", canvas.getWidth() / 4, button5H + height * 6/100,paint);
+                    canvas.drawText("役職説明", width / 4, button5H + height * 6/100,paint);
                     //プレイヤー数表示
                     playerVolume = String.format("プレイヤー数：%d人",8);
                     paint.setColor(Color.WHITE);
-                    canvas.drawText(playerVolume, width * 20 / 100, height * 10 / 100 ,paint);
+                    textSize = (float)height * 7 / 100;
+                    paint.setTextSize(textSize);
+                    canvas.drawText(playerVolume, width * 10 / 100, height * 10 / 100 ,paint);
                     break;
 
                 case "rule_setting":
@@ -214,14 +221,16 @@ public class CustomView extends View {
                     canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
                     //戻る
                     canvas.drawBitmap(buttonImg, null, rectButton1,paint);
-                    canvas.drawText("戻る", canvas.getWidth() / 4, button1H + height * 6 / 100, paint);
+                    canvas.drawText("戻る", width / 4, button1H + height * 6 / 100, paint);
                     //推奨設定
                     canvas.drawBitmap(buttonImg,null,rectButton2, paint);
-                    canvas.drawText("推奨設定", canvas.getWidth() / 4, button2H + height * 6 / 100, paint);
+                    canvas.drawText("推奨設定", width / 4, button2H + height * 6 / 100, paint);
                     //プレイヤー数表示
                     playerVolume = String.format("プレイヤー数：%d人",8);
                     paint.setColor(Color.WHITE);
-                    canvas.drawText(playerVolume, width * 20 / 100, height * 10 / 100 ,paint);
+                    textSize = (float)height * 7 / 100;
+                    paint.setTextSize(textSize);
+                    canvas.drawText(playerVolume, width * 10 / 100, height * 10 / 100 ,paint);
 
                     break;
 
@@ -231,10 +240,10 @@ public class CustomView extends View {
                     canvas.drawBitmap(backgroundImg, null, backgroundRect, paint);
                     //戻る
                     canvas.drawBitmap(buttonImg, null, rectButton1,paint);
-                    canvas.drawText("戻る", canvas.getWidth() / 4, button1H + height * 6 / 100, paint);
+                    canvas.drawText("戻る", width / 4, button1H + height * 6 / 100, paint);
                     //シャッフル
                     canvas.drawBitmap(buttonImg,null,rectButton2, paint);
-                    canvas.drawText("シャッフル", canvas.getWidth() / 4, button2H + height * 6 / 100, paint);
+                    canvas.drawText("シャッフル", width / 4, button2H + height * 6 / 100, paint);
                     break;
 
                 case "explain":
@@ -598,19 +607,19 @@ public class CustomView extends View {
 //                canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 ////                //スタート
 ////                canvas.drawBitmap(buttonImg,null,rectButton1,paint);
-////                canvas.drawText("スタート", canvas.getWidth() / 4, button1H + height * 6/100,paint);
+////                canvas.drawText("スタート", width / 4, button1H + height * 6/100,paint);
 //                //ルール設定
 //                canvas.drawBitmap(buttonImg,null,rectButton2,paint);
-//                canvas.drawText("ルール設定", canvas.getWidth() / 4,button2H + height * 6/100, paint);
+//                canvas.drawText("ルール設定", width / 4,button2H + height * 6/100, paint);
 //                //配役設定
 //                canvas.drawBitmap(buttonImg,null,rectButton3,paint);
-//                canvas.drawText("配役設定", canvas.getWidth() / 4, button3H + height * 6/100, paint);
+//                canvas.drawText("配役設定", width / 4, button3H + height * 6/100, paint);
 //                //プレイヤー設定
 //                canvas.drawBitmap(buttonImg,null,rectButton4,paint);
-//                canvas.drawText("プレイヤー設定", canvas.getWidth() / 4, button4H + height * 6/100, paint);
+//                canvas.drawText("プレイヤー設定", width / 4, button4H + height * 6/100, paint);
 //                //役職一覧
 //                canvas.drawBitmap(buttonImg,null,rectButton5,paint);
-//                canvas.drawText("役職説明", canvas.getWidth() / 4, button5H + height * 6/100,paint);
+//                canvas.drawText("役職説明", width / 4, button5H + height * 6/100,paint);
 //                //プレイヤー数表示
 //                playerVolume = String.format("プレイヤー数：%d人",8);
 //                paint.setColor(Color.WHITE);
@@ -624,26 +633,26 @@ public class CustomView extends View {
 //                canvas.drawBitmap(backgroundImg, null, backgroundRect, paint);
 //                //戻る
 //                canvas.drawBitmap(buttonImg, null, rectButton1,paint);
-//                canvas.drawText("戻る", canvas.getWidth() / 4, button1H + height * 6 / 100, paint);
+//                canvas.drawText("戻る", width / 4, button1H + height * 6 / 100, paint);
 //                //推奨設定
 //                canvas.drawBitmap(buttonImg,null,rectButton2, paint);
-//                canvas.drawText("推奨設定", canvas.getWidth() / 4, button2H + height * 6 / 100, paint);
+//                canvas.drawText("推奨設定", width / 4, button2H + height * 6 / 100, paint);
 //                //議論時間
 //                canvas.drawBitmap(buttonImg, null, rectButton3, paint);
 //                String textTime = String.format("議論時間：%d分", 5);
-//                canvas.drawText(textTime, canvas.getWidth() / 4, button3H + height * 6 / 100, paint);
+//                canvas.drawText(textTime, width / 4, button3H + height * 6 / 100, paint);
 //                //初日占い
 //   p]           canvas.drawBitmap(buttonImg, null, rectButton4, paint);
 //                String textSeer = String.format("初日占い：%s", "あり");
-//                canvas.drawText(textSeer, canvas.getWidth() / 4, button4H + height * 6/100, paint);
+//                canvas.drawText(textSeer, width / 4, button4H + height * 6/100, paint);
 //                //役かけ
 //                canvas.drawBitmap(buttonImg, null, rectButton5, paint);
 //                String textLack = String.format("役かけ：%s","なし");
-//                canvas.drawText(textLack, canvas.getWidth() / 4, button5H + height * 6/100,paint);
+//                canvas.drawText(textLack, width / 4, button5H + height * 6/100,paint);
 //                //連続ガード
 //                canvas.drawBitmap(buttonImg,null,rectButton6,paint);
 //                String textBodyguard = String.format("連続ガード：%s","あり");
-//                canvas.drawText(textBodyguard, canvas.getWidth() / 4, button6H + height * 6/100,paint);
+//                canvas.drawText(textBodyguard, width / 4, button6H + height * 6/100,paint);
 //
 //                break;
 //
@@ -652,10 +661,10 @@ public class CustomView extends View {
 //                canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 //                //戻る
 //                canvas.drawBitmap(buttonImg, null, rectButton1,paint);
-//                canvas.drawText("戻る", canvas.getWidth() / 4, button1H + height * 6 / 100, paint);
+//                canvas.drawText("戻る", width / 4, button1H + height * 6 / 100, paint);
 //                //推奨設定
 //                canvas.drawBitmap(buttonImg,null,rectButton2, paint);
-//                canvas.drawText("推奨設定", canvas.getWidth() / 4, button2H + height * 6 / 100, paint);
+//                canvas.drawText("推奨設定", width / 4, button2H + height * 6 / 100, paint);
 //                //プレイヤー数表示
 //                playerVolume = String.format("プレイヤー数：%d人",8);
 //                paint.setColor(Color.WHITE);
@@ -669,10 +678,10 @@ public class CustomView extends View {
 //                canvas.drawBitmap(backgroundImg, null, backgroundRect, paint);
 //                //戻る
 //                canvas.drawBitmap(buttonImg, null, rectButton1,paint);
-//                canvas.drawText("戻る", canvas.getWidth() / 4, button1H + height * 6 / 100, paint);
+//                canvas.drawText("戻る", width / 4, button1H + height * 6 / 100, paint);
 //                //シャッフル
 //                canvas.drawBitmap(buttonImg,null,rectButton2, paint);
-//                canvas.drawText("シャッフル", canvas.getWidth() / 4, button2H + height * 6 / 100, paint);
+//                canvas.drawText("シャッフル", width / 4, button2H + height * 6 / 100, paint);
 //                break;
 //
 //            case "explain":
@@ -680,7 +689,7 @@ public class CustomView extends View {
 //                canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 //                //戻る
 //                canvas.drawBitmap(buttonImg, null, rectButton1,paint);
-//                canvas.drawText("戻る", canvas.getWidth() / 4, button1H + height * 6 / 100, paint);
+//                canvas.drawText("戻る", width / 4, button1H + height * 6 / 100, paint);
 //                break;
 //
 //            case "game_scene":
