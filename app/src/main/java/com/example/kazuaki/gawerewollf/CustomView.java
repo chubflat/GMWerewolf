@@ -413,7 +413,7 @@ public class CustomView extends View {
     public static boolean canContinuousGuard = true; //連続護衛有無
     public static boolean isLacking = false; //役欠け有無
     public static String seerMode = "free"; //初日占い
-    public static int meetingTime = 3; //議論時間
+    public static int meetingTime = 3; //議論 時間
 
     public static String setRuleText(String rule){
         String ruleText = "";
@@ -462,8 +462,6 @@ public class CustomView extends View {
                         case "setting_menu":
                             if(rectButton1.contains((int)pointX,(int)pointY)){ //スタートボタン
                                 setDialog("start");
-                                SettingScene.isSettingScene = false;
-                                SettingScene.isGameScene = true;
 //                                SettingScene.settingPhase = "client_menu";
                             }else if(rectButton2.contains((int)pointX,(int)pointY)){ // ルール設定
                                 SettingScene.settingPhase = "rule_setting";

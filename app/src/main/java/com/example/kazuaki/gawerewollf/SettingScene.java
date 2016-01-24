@@ -29,6 +29,7 @@ public class SettingScene extends Activity {
     public static String settingPhase;
     public static boolean onDialog = false;
     public static String dialogPattern;
+    public static CustomView customView;
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {    //戻るボタンの反応なくす
@@ -50,7 +51,7 @@ public class SettingScene extends Activity {
         setContentView(layout);
 
         //custom add
-        final CustomView customView = new CustomView(this);
+        customView = new CustomView(this);
         layout.addView(customView);
 
     }
@@ -101,43 +102,38 @@ public class SettingScene extends Activity {
 
                    }else{
 
-                       //            switch (dialogPattern){
-                       //                case "Seer":
-                       //                    dialogText = String.format("%sさんを占いますか？","xxxx");//TODO String.formatを記入。リストで選択したプレイヤーのID
-                       //                    break;
-                       //                case "Werewolf":
-                       //                    dialogText = String.format("%sさんを襲撃しますか？","wwww");
-                       //                    break;
-                       //                case "Bodyguard":
-                       //                    dialogText = String.format("%さんを護衛しますか？","bbbb");
-                       //                    break;
-                       //                default:
-                       //                    break;
-                       //            }
-                       //            builder.setMessage(dialogText)
-                       //                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                       //                        public void onClick(DialogInterface dialog, int id) {
-                       //// ボタンをクリックしたときの動作
-                       //                            onDialog = false;
-                       //                            settingPhase = "client_menu";
-                       //                            customView.invalidate();
-                       //
-                       //                        }
-                       //                    });
-                       //            builder.setMessage(dialogText)
-                       //                    .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
-                       //                        public void onClick(DialogInterface dialog, int id) {
-                       //// ボタンをクリックしたときの動作
-                       //                        }
-                       //                    });
-                       //            builder.show();
-                       //        }
+                                   switch (dialogPattern){
+                                       case "start":
+                                           dialogText = "ゲームを開始します";
+                                           break;
+                                       default:
+                                           break;
+                                   }
+                                   builder.setMessage(dialogText)
+                                           .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                               public void onClick(DialogInterface dialog, int id) {
+                       // ボタンをクリックしたときの動作
+                                                   // dialog 表示しない
+                                                   onDialog = false;
+                                                   SettingScene.isSettingScene = false;
+                                                   SettingScene.isGameScene = true;
+                                                   // Activity遷移
+                                                   Intent intent = new Intent(SettingScene.this,GameScene.class);
+                                                   startActivity(intent);
+                                                   customView.invalidate();
+
+                                               }
+                                           });
+                                   builder.setMessage(dialogText)
+                                           .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
+                                               public void onClick(DialogInterface dialog, int id) {
+                       // ボタンをクリックしたときの動作
+                                               }
+                                           });
+                                   builder.show();
                    }
-
                }
-
        return true;
-
    }
 
 
