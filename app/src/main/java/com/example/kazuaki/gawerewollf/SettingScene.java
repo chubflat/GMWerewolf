@@ -124,11 +124,44 @@ public class SettingScene extends Activity {
         });
         // TODO 長押しで削除
         playerListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> parent,
-                                                   View view, int position, long id) {
-                    }
-                });
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent,
+                                           View view, int position, long id) {
+                String dialogText = String.format("「%d」さんを削除します",listInfoDicArray.get(position).get("name"));
+                selectedPlayerId = position;
+                AlertDialog.Builder builder = new AlertDialog.Builder(SettingScene.this);
+                builder.setMessage(dialogText)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // ボタンをクリックしたときの動作
+                                // dialog 表示しない
+                                onDialog = false;
+                                listInfoDicArray.remove(selectedPlayerId);
+
+                                listInfoDicArray.clear();
+
+                                for (int i = 0; i < listArray.size(); i++) {
+
+                                    Map<String,String> conMap = new HashMap<>();
+                                    conMap.put("name",listArray.get(i));
+                                    conMap.put("listSecondInfo","");
+                                    listInfoDicArray.add(conMap);
+                                }
+
+                                playerListView.invalidateViews();
+                            }
+                        });
+                builder.setMessage(dialogText)
+                        .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // ボタンをクリックしたときの動作
+                            }
+                        });
+                builder.show();
+
+                return true;
+            }
+        });
 
         layout.addView(playerListView);
 
@@ -205,7 +238,7 @@ public class SettingScene extends Activity {
 
                        dialogPattern = "";
 
-                   }else{
+                   }else if(dialogPattern.equals("start")){
 
                                    switch (dialogPattern){
                                        case "start":
