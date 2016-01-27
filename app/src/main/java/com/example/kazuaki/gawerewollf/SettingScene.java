@@ -259,7 +259,7 @@ public class SettingScene extends Activity {
                                                    // Activity遷移
                                                    Intent intent = new Intent(SettingScene.this,GameScene.class);
                                                    startActivity(intent);
-                                                   customView.invalidate();
+//                                                   customView.invalidate();
 
                                                }
                                            });
