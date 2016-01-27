@@ -138,6 +138,7 @@ public class SettingScene extends Activity {
                                 onDialog = false;
                                 listInfoDicArray.remove(selectedPlayerId);
 
+                                listArray.clear();
                                 listInfoDicArray.clear();
 
                                 for (int i = 0; i < listArray.size(); i++) {
