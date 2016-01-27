@@ -56,7 +56,7 @@ public class GameScene extends Activity {
     public static String dialogPattern;
 
 
-    public static String lineText;
+    public static String lineText = "test";
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {    //戻るボタンの反応なくす
@@ -156,8 +156,8 @@ public class GameScene extends Activity {
         @Override
         public boolean onTouchEvent(MotionEvent event){
 
-            if(nightPhase.equals("werewolf")){
-                sendTextToLine(GameScene.this,lineText);
+            if(gamePhase.equals("night_opening")){
+                sendTextToLine(this,lineText);
             }
 
     //        String dialogText = "dialogText";
@@ -439,6 +439,9 @@ public class GameScene extends Activity {
         // TODO phaseの順番を定義する
         drawListView(false);
         switch (gamePhase){
+            case "set_role":
+                gamePhase = "night_opening";
+                break;
             case "player_setting":
                 gamePhase = "role_setting";
                 setRole();

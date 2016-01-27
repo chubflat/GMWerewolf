@@ -126,7 +126,7 @@ public class CustomView extends View {
 //        userSettingButtonRect = new Rect(width * 10 / 100 ,height * 65 / 100,width * 90 / 100 ,height * 75 / 100);
 
         //GameScene用Rect初期化
-//        confirmButtonRect = new Rect(width * 10 / 100 ,height * 80 / 100,width * 90 / 100 ,height * 90 / 100);
+        confirmButtonRect = new Rect(width * 10 / 100 ,height * 80 / 100,width * 90 / 100 ,height * 90 / 100);
 //        actionButtonRect = new Rect (width * 75 / 100 ,height * 5 / 100,width * 95 / 100 ,height * 20 / 100);
 //        topTextRect = new Rect(width * 20 / 100 ,height * 5 / 100,width * 80 / 100 ,height * 15 / 100);
 //        roleCardRect = new Rect(width * 5 / 100, height * 5/100 ,width * 20 / 100 ,height * 20 / 100);
@@ -298,8 +298,8 @@ public class CustomView extends View {
                     canvas.drawBitmap(buttonImg, null, rectButton5, paint);
                     canvas.drawText("手動配役", width / 4, button5H + height * 6/100,paint);
 
-//                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
-//                    canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
+                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
+                    canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
 
                     break;
 
@@ -579,11 +579,19 @@ public class CustomView extends View {
                     }
 
                 }else if(!isSettingScene && isGameScene){
-                    if(nightPhase.equals("werewolf")){
-                        if(rectButton3.contains((int)pointX,(int)pointY)){
+                    switch (gamePhase){
+                        case "set_role":
+                            if(rectButton3.contains((int) pointX, (int) pointY)){ //自動設定
+                                GameScene.gamePhase = "night_opening";
 
-                        }
+                            }
+                            break;
+                        case "night_opening":
+                            break;
+                        default:
+                            break;
                     }
+
                     if(confirmButtonRect.contains((int)pointX,(int)pointY)){
                         GameScene.goNextPhase();
                     }
