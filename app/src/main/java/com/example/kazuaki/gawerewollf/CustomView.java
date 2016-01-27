@@ -128,7 +128,11 @@ public class CustomView extends View {
 //        roleCardRect = new Rect(width * 5 / 100, height * 5/100 ,width * 20 / 100 ,height * 20 / 100);
 //        timerRect = new Rect(width * 22 / 100, height * 5/100 ,width * 70 / 100 ,height * 20 / 100);
 
+        SettingScene.drawListView(SettingScene.playerListView,false);
+
     }
+
+
     @Override
     protected void onDraw(Canvas canvas){
         canvas.drawColor(0, PorterDuff.Mode.CLEAR);
@@ -163,9 +167,6 @@ public class CustomView extends View {
         backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.afternoon,bitmapWidth,bitmapHeight);
         canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 
-        // default List非表示
-//        GameScene.drawListView(false);
-
         if(isSettingScene){
             switch (settingPhase){
 
@@ -189,7 +190,7 @@ public class CustomView extends View {
                     canvas.drawBitmap(buttonImg,null,rectButton5,paint);
                     canvas.drawText("役職説明", width / 4, button5H + height * 6/100,paint);
                     //プレイヤー数表示
-                    playerVolume = String.format("プレイヤー数：%d人",8);
+                    playerVolume = String.format("プレイヤー数：%d人",SettingScene.listArray.size());
                     paint.setColor(Color.WHITE);
                     textSize = (float)height * 6 / 100;
                     paint.setTextSize(textSize);
@@ -212,15 +213,15 @@ public class CustomView extends View {
                     canvas.drawText(textTime, width / 4, button3H + height * 6 / 100, paint);
                     //初日占い
                     canvas.drawBitmap(buttonImg, null, rectButton4, paint);
-                    String textSeer = String.format("初日占い：%s",setRuleText("seerMode"));// TODO 変更可能に
+                    String textSeer = String.format("初日占い：%s",setText("seerMode"));// TODO 変更可能に
                     canvas.drawText(textSeer, width / 4, button4H + height * 6/100, paint);
                     //役かけ
                     canvas.drawBitmap(buttonImg, null, rectButton5, paint);
-                    String textLack = String.format("役かけ：%s",setRuleText("isLacking"));//TODO 変更可能に
+                    String textLack = String.format("役かけ：%s",setText("isLacking"));//TODO 変更可能に
                     canvas.drawText(textLack, width / 4, button5H + height * 6/100,paint);
                     //連続ガード
                     canvas.drawBitmap(buttonImg,null,rectButton6,paint);
-                    String textBodyguard = String.format("連続ガード：%s",setRuleText("canContinuousGuard"));//TODO 変更可能に
+                    String textBodyguard = String.format("連続ガード：%s",setText("canContinuousGuard"));//TODO 変更可能に
                     canvas.drawText(textBodyguard, width / 4, button6H + height * 6/100,paint);
 
                     break;
@@ -235,7 +236,7 @@ public class CustomView extends View {
                     canvas.drawBitmap(buttonImg,null,rectButton2, paint);
                     canvas.drawText("推奨設定", width / 4, button2H + height * 6 / 100, paint);
                     //プレイヤー数表示
-                    playerVolume = String.format("プレイヤー数：%d人",8);
+                    playerVolume = String.format("プレイヤー数：%d人",SettingScene.listArray.size());
                     paint.setColor(Color.WHITE);
                     textSize = (float)height * 6 / 100;
                     paint.setTextSize(textSize);
@@ -253,6 +254,14 @@ public class CustomView extends View {
                     //プレイヤー追加
                     canvas.drawBitmap(buttonImg,null,rectButton2, paint);
                     canvas.drawText("プレイヤー追加", width / 4, button2H + height * 6 / 100, paint);
+                    //プレイヤー数表示
+                    playerVolume = String.format("プレイヤー数：%d人",SettingScene.listArray.size());// TODO 人数表示
+                    paint.setColor(Color.WHITE);
+                    textSize = (float)height * 6 / 100;
+                    paint.setTextSize(textSize);
+                    canvas.drawText(playerVolume, width * 5 / 100, height * 10 / 100 ,paint);
+                    //playerListView表示
+                    SettingScene.drawListView(SettingScene.playerListView,true);
                     break;
 
                 case "explain":
@@ -273,69 +282,40 @@ public class CustomView extends View {
 
             switch (gamePhase){
 
-              case "role_check":
-              break;
+                case "night_opening":
+                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.night,bitmapWidth,bitmapHeight);
+                    canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 
-                case "night_roleRotate":
-                    // rotateImg 表示
-                    Rect rotateCardRect = new Rect(width * 15 /100,height * 20 / 100 ,width * 85 / 100 ,height *20 /100 + width * 70 / 100  * 1125 /938 );
-                    //TODO cardRotate
-                    //TODO roleImgを取ってくる:デフォルトで村人
+                    if(isFirstNight){
 
-                    canvas.drawBitmap(backCard, null, rotateCardRect, paint);
-                    //timer実装
-
-
-                    canvas.drawBitmap(roleImg,null,rotateCardRect,paint);
-                    // confirm button
-                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
-                    canvas.drawText("詳細確認", width * 25 / 100, height * 85 / 100, paint);
-
-                    break;
-                case "night_roleCheck":
-
-                    //Rect宣言
-                    Rect topFrameRect = new Rect(width * 5 /100,height * 5 / 100 ,width * 95 / 100 ,height * 50 /100);
-                    Rect belowFrameRect = new Rect(width * 20 /100,height * 60 / 100 ,width * 80 / 100 ,height * 75 /100);
-                    Rect roleCheckCardRect = new Rect(width * 42 /100,height * 10 / 100 ,width * 58 / 100 ,height * 10 /100 + width * 16/100 * 1125/938);
-
-                    // canvasDraw
-                    // 画面上部のテキスト情報
-                    canvas.drawBitmap(frameImg,null,topFrameRect,paint);
-                    String roleText = String.format("あなたの役職は「%s」です。%s","村人","役職のテキスト");
-
-                    TextPaint mTextPaint = new TextPaint();
-                    mTextPaint.setTextSize(30);
-                    StaticLayout mTextLayout = new StaticLayout(roleText,mTextPaint,width*3/5, Layout.Alignment.ALIGN_NORMAL,1.0f,0.0f,false);
-                    canvas.translate(width * 2 / 10, height * 25 / 100);//text の左上座標の指定
-
-                    mTextLayout.draw(canvas);
-                    canvas.restore();
-
-                    canvas.drawBitmap(frameImg,null,belowFrameRect,paint);
-                    canvas.drawBitmap(roleImg, null, roleCheckCardRect, paint);
-                    // confirm button
-                    canvas.drawBitmap(buttonImg,null,confirmButtonRect,paint);
-                    canvas.drawText("初日夜へ", width * 25 / 100, height * 85 / 100, paint);
+                    }else{
+                        //夜時間終了
+                        canvas.drawBitmap(buttonImg, null, rectButton1,paint);
+                        canvas.drawText("夜時間終了", width / 4, button1H + height * 6 / 100, paint);
+//                        //
+//                        canvas.drawBitmap(buttonImg,null,rectButton2, paint);
+//                        canvas.drawText("****", width / 4, button2H + height * 6 / 100, paint);
+                        //狩人
+                        canvas.drawBitmap(buttonImg, null, rectButton3, paint);
+                        String textTime = String.format("狩人：%s", meetingTime);
+                        canvas.drawText(textTime, width / 4, button3H + height * 6 / 100, paint);
+                        //霊媒師
+                        canvas.drawBitmap(buttonImg, null, rectButton4, paint);
+                        String textSeer = String.format("霊媒師：%s",setText("seerMode"));
+                        canvas.drawText(textSeer, width / 4, button4H + height * 6/100, paint);
+                        //占い師
+                        canvas.drawBitmap(buttonImg, null, rectButton5, paint);
+                        String textLack = String.format("占い師：%s",setText("isLacking"));
+                        canvas.drawText(textLack, width / 4, button5H + height * 6/100,paint);
+                        // 人狼
+                        canvas.drawBitmap(buttonImg,null,rectButton6,paint);
+                        String textBodyguard = String.format("人狼：%s",setText("canContinuousGuard"));
+                        canvas.drawText(textBodyguard, width / 4, button6H + height * 6/100,paint);
 
 
+                    }
                     break;
 
-                case "night_chat":
-                    canvas.drawBitmap(roleImg,null,roleCardRect,paint);
-                    canvas.drawBitmap(timerFrameImg,null,timerRect,paint);
-                    canvas.drawBitmap(buttonImg,null,actionButtonRect,paint);
-
-                    String action = "占う";
-                    // TODO 役職ごとに文字を変えるswitch文
-                    canvas.drawText(action, width * 75 / 100, height * 10 / 100, paint);
-
-                    // TODO Chat実装
-                    // confirm button
-                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
-                    canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
-
-                    break;
 
                 case "morning":
                     // background
@@ -415,7 +395,7 @@ public class CustomView extends View {
     public static String seerMode = "free"; //初日占い
     public static int meetingTime = 3; //議論 時間
 
-    public static String setRuleText(String rule){
+    public static String setText(String rule){
         String ruleText = "";
         switch (rule){
             case "seerMode":
