@@ -172,6 +172,9 @@ public class GameScene extends Activity {
                     case "next":
                         dialogText = "次の役職に移ります";
                         break;
+                    case "finish_night":
+                        dialogText = "夜時間を終了します";
+                        break;
                     default:
                         break;
                 }
@@ -185,6 +188,7 @@ public class GameScene extends Activity {
                                         break;
 
                                     case "next":
+                                    case "finish_night":
                                         goNextNightPhase();
                                         break;
                                     default:

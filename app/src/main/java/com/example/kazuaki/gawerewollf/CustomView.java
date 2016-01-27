@@ -601,6 +601,11 @@ public class CustomView extends View {
 
                         }
                             break;
+                        case "night_action":
+                            if(confirmButtonRect.contains((int) pointX, (int) pointY)){ //自動設定
+                                setDialog("finish_night");
+
+                            }
                         default:
                             break;
                     }
