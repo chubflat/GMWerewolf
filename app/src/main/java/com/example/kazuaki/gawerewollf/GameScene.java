@@ -1,7 +1,9 @@
 package com.example.kazuaki.gawerewollf;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -46,6 +48,7 @@ public class GameScene extends Activity {
     public static boolean isFirstNight;//初日フラグ
     public static ArrayList<ArrayList<Integer>> wolfkillArray;
     public static ArrayList<String> prePlayerList;//参加者リスト
+    public static CustomView customView;
 
     public static boolean isGameScene = true;
     public static boolean isSettingScene = false;
@@ -80,7 +83,7 @@ public class GameScene extends Activity {
         setContentView(layout);
 
         //custom add
-        final CustomView customView = new CustomView(this);
+        customView = new CustomView(this);
         layout.addView(customView);
 
         //EditText
@@ -116,18 +119,18 @@ public class GameScene extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(gamePhase.equals("player_setting")){
+                if (gamePhase.equals("player_setting")) {
                     selectedPlayerId = -2;
-                }else{
+                } else {
                     selectedPlayerId = listPlayerIdArray.get(position);
                 }
 
-                if(gamePhase.equals("player_setting")){
+                if (gamePhase.equals("player_setting")) {
 
-                }else{
+                } else {
                     if (nowPlayer < playerArray.size() && playerArray.get(nowPlayer).get("roleId") == Utility.Role.Werewolf) {
                         if (isFirstNight) {//人狼：初日の夜はタッチできない
-                            if(selectedPlayerId == -1){
+                            if (selectedPlayerId == -1) {
                                 goNextPhase();
                                 customView.invalidate();
                             }
@@ -156,46 +159,52 @@ public class GameScene extends Activity {
         @Override
         public boolean onTouchEvent(MotionEvent event){
 
-            if(gamePhase.equals("night_opening")){
-                sendTextToLine(this,lineText);
-            }
 
-    //        String dialogText = "dialogText";
-    //
-    //        if(event.getAction() == MotionEvent.ACTION_DOWN && onDialog == true ){
-    //            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    //
-    //            switch (dialogPattern){
-    //                case "Seer":
-    //                    dialogText = String.format("%sさんを占いますか？","xxxx");//TODO String.formatを記入。リストで選択したプレイヤーのID
-    //                    break;
-    //                case "Werewolf":
-    //                    dialogText = String.format("%sさんを襲撃しますか？","wwww");
-    //                    break;
-    //                case "Bodyguard":
-    //                    dialogText = String.format("%さんを護衛しますか？","bbbb");
-    //                    break;
-    //                default:
-    //                    break;
-    //            }
-    //            builder.setMessage(dialogText)
-    //                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-    //                        public void onClick(DialogInterface dialog, int id) {
-    //// ボタンをクリックしたときの動作
-    //                            onDialog = false;
-    //                            settingPhase = "client_menu";
-    //                            customView.invalidate();
-    //
-    //                        }
-    //                    });
-    //            builder.setMessage(dialogText)
-    //                    .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
-    //                        public void onClick(DialogInterface dialog, int id) {
-    //// ボタンをクリックしたときの動作
-    //                        }
-    //                    });
-    //            builder.show();
-    //        }
+            String dialogText = "dialogText";
+
+            if(event.getAction() == MotionEvent.ACTION_DOWN && onDialog == true ){
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                switch (dialogPattern){
+                    case "sendLine":
+                        dialogText = "LINEに投稿しますか？";
+                        break;
+                    case "next":
+                        dialogText = "次の役職に移ります";
+                        break;
+                    default:
+                        break;
+                }
+                builder.setMessage(dialogText)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+    // ボタンをクリックしたときの動作
+                                switch (dialogPattern){
+                                    case "sendLine":
+                                        sendTextToLine(GameScene.this,lineText);
+                                        break;
+
+                                    case "next":
+                                        goNextNightPhase();
+                                        break;
+                                    default:
+                                        break;
+
+                                }
+
+                                onDialog = false;
+                                customView.invalidate();
+
+                            }
+                        });
+                builder.setMessage(dialogText)
+                        .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+    // ボタンをクリックしたときの動作
+                            }
+                        });
+                builder.show();
+            }
 
             return true;
         }
@@ -284,8 +293,6 @@ public class GameScene extends Activity {
             listView.setVisibility(View.INVISIBLE);
         }
     }
-
-
 
     // 初期化メソッド
     public static void initBackground() {
@@ -388,7 +395,6 @@ public class GameScene extends Activity {
         }
 //        victimArray = new ArrayList<Integer>();
     }
-
 
     public void setBackground(){
         //TODO 画面作成処理
@@ -530,6 +536,29 @@ public class GameScene extends Activity {
                 gamePhase = "player_setting";
                 break;
             default:
+                break;
+        }
+    }
+    public static void goNextNightPhase(){
+        switch (nightPhase){
+            case "werewolf":
+                nightPhase = "seer";
+                break;
+            case "seer":
+                nightPhase = "medium";
+                break;
+            case "medium":
+                nightPhase = "bodyguard";
+                break;
+            case "bodyguard":
+                nightPhase = "minion";
+                break;
+            case "minion":
+                nightPhase = "villager";
+                break;
+            case "villager":
+                gamePhase = "night_action"; // 村人が終わったらアクションに移る
+                // TODO refresh
                 break;
         }
     }

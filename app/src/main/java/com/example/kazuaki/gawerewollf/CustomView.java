@@ -331,42 +331,49 @@ public class CustomView extends View {
                             default:
                                 break;
                         }
-                        canvas.drawText(lineText,width * 10/100,height * 5/100,paint);
-                        //LINEに投稿
-                        canvas.drawBitmap(buttonImg, null, rectButton3, paint);
-                        canvas.drawText("LINEに投稿する", width / 4, button3H + height * 6 / 100, paint);
-                        //次へ
-                        canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
-                        canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
+
 
                     }else{
-                        //夜時間終了
-                        canvas.drawBitmap(buttonImg, null, rectButton1,paint);
-                        canvas.drawText("夜時間終了", width / 4, button1H + height * 6 / 100, paint);
+                        lineText = String.format("%d日目の夜になりました。それぞれアクションを行ってください",day); // 2日目以降の夜
+
+                    }
+                    canvas.drawText(lineText,width * 10/100,height * 5/100,paint);
+                    //LINEに投稿
+                    canvas.drawBitmap(buttonImg, null, rectButton3, paint);
+                    canvas.drawText("LINEに投稿する", width / 4, button3H + height * 6 / 100, paint);
+                    //次へ
+                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
+                    canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
+
+                    GameScene.lineText = lineText;
+                    break;
+
+                case "night_action":
+                    //夜時間終了
+                    canvas.drawBitmap(buttonImg, null, rectButton1,paint);
+                    canvas.drawText("夜時間終了", width / 4, button1H + height * 6 / 100, paint);
 //                        //
 //                        canvas.drawBitmap(buttonImg,null,rectButton2, paint);
 //                        canvas.drawText("****", width / 4, button2H + height * 6 / 100, paint);
-                        //狩人
-                        canvas.drawBitmap(buttonImg, null, rectButton3, paint);
-                        String textTime = String.format("狩人：%s", meetingTime);
-                        canvas.drawText(textTime, width / 4, button3H + height * 6 / 100, paint);
-                        //霊媒師
-                        canvas.drawBitmap(buttonImg, null, rectButton4, paint);
-                        String textSeer = String.format("霊媒師：%s",setText("seerMode"));
-                        canvas.drawText(textSeer, width / 4, button4H + height * 6/100, paint);
-                        //占い師
-                        canvas.drawBitmap(buttonImg, null, rectButton5, paint);
-                        String textLack = String.format("占い師：%s",setText("isLacking"));
-                        canvas.drawText(textLack, width / 4, button5H + height * 6/100,paint);
-                        // 人狼
-                        canvas.drawBitmap(buttonImg,null,rectButton6,paint);
-                        String textBodyguard = String.format("人狼：%s",setText("canContinuousGuard"));
-                        canvas.drawText(textBodyguard, width / 4, button6H + height * 6/100,paint);
+                    //狩人
+                    canvas.drawBitmap(buttonImg, null, rectButton3, paint);
+                    String textTime = String.format("狩人：%s", meetingTime);
+                    canvas.drawText(textTime, width / 4, button3H + height * 6 / 100, paint);
+                    //霊媒師
+                    canvas.drawBitmap(buttonImg, null, rectButton4, paint);
+                    String textSeer = String.format("霊媒師：%s",setText("seerMode"));
+                    canvas.drawText(textSeer, width / 4, button4H + height * 6/100, paint);
+                    //占い師
+                    canvas.drawBitmap(buttonImg, null, rectButton5, paint);
+                    String textLack = String.format("占い師：%s",setText("isLacking"));
+                    canvas.drawText(textLack, width / 4, button5H + height * 6/100,paint);
+                    // 人狼
+                    canvas.drawBitmap(buttonImg,null,rectButton6,paint);
+                    String textBodyguard = String.format("人狼：%s",setText("canContinuousGuard"));
+                    canvas.drawText(textBodyguard, width / 4, button6H + height * 6/100,paint);
 
 
-                    }
                     break;
-
 
                 case "morning":
                     // background
@@ -484,7 +491,6 @@ public class CustomView extends View {
     public boolean onTouchEvent(MotionEvent event){
         float pointX = event.getX();
         float pointY = event.getY();
-        setSameVariable();
 
 
         switch (event.getAction()){
@@ -587,14 +593,21 @@ public class CustomView extends View {
                             }
                             break;
                         case "night_opening":
+                            if(rectButton3.contains((int) pointX, (int) pointY)){ //自動設定
+                                setDialog("sendLine");
+
+                            }else if(confirmButtonRect.contains((int) pointX, (int) pointY)){ //自動設定
+                                setDialog("next");
+
+                        }
                             break;
                         default:
                             break;
                     }
 
-                    if(confirmButtonRect.contains((int)pointX,(int)pointY)){
-                        GameScene.goNextPhase();
-                    }
+//                    if(confirmButtonRect.contains((int)pointX,(int)pointY)){
+//                        GameScene.goNextPhase();
+//                    }
 
                 }
                 break;
