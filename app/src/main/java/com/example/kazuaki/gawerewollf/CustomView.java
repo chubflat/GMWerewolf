@@ -350,27 +350,27 @@ public class CustomView extends View {
 
                 case "night_action":
                     //夜時間終了
-                    canvas.drawBitmap(buttonImg, null, rectButton1,paint);
+                    canvas.drawBitmap(buttonImg, null, confirmButtonRect,paint);
                     canvas.drawText("夜時間終了", width / 4, button1H + height * 6 / 100, paint);
 //                        //
 //                        canvas.drawBitmap(buttonImg,null,rectButton2, paint);
 //                        canvas.drawText("****", width / 4, button2H + height * 6 / 100, paint);
                     //狩人
                     canvas.drawBitmap(buttonImg, null, rectButton3, paint);
-                    String textTime = String.format("狩人：%s", meetingTime);
+                    String textTime = String.format("狩人：%s", "未実装");
                     canvas.drawText(textTime, width / 4, button3H + height * 6 / 100, paint);
                     //霊媒師
                     canvas.drawBitmap(buttonImg, null, rectButton4, paint);
-                    String textSeer = String.format("霊媒師：%s",setText("seerMode"));
+                    String textSeer = String.format("霊媒師：%s","未実装");
                     canvas.drawText(textSeer, width / 4, button4H + height * 6/100, paint);
                     //占い師
                     canvas.drawBitmap(buttonImg, null, rectButton5, paint);
-                    String textLack = String.format("占い師：%s",setText("isLacking"));
-                    canvas.drawText(textLack, width / 4, button5H + height * 6/100,paint);
+                    String textLack = String.format("占い師：%s","未実装");
+                    canvas.drawText(textLack, width / 4, button5H + height * 6 / 100, paint);
                     // 人狼
                     canvas.drawBitmap(buttonImg,null,rectButton6,paint);
-                    String textBodyguard = String.format("人狼：%s",setText("canContinuousGuard"));
-                    canvas.drawText(textBodyguard, width / 4, button6H + height * 6/100,paint);
+                    String textBodyguard = String.format("人狼：%s","未実装");
+                    canvas.drawText(textBodyguard, width / 4, button6H + height * 6 / 100, paint);
 
 
                     break;

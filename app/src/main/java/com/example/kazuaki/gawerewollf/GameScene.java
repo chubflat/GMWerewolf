@@ -447,70 +447,27 @@ public class GameScene extends Activity {
         switch (gamePhase){
             case "set_role":
                 gamePhase = "night_opening";
-                break;
-            case "player_setting":
-                gamePhase = "role_setting";
-                setRole();
-                break;
-            case "role_setting":
-                gamePhase = "night_opening";
-//                    setRole();
                 day = 1;
                 break;
             case "night_opening":
-                gamePhase = "night_playerCheck";
+                gamePhase = "night_action";
                 break;
-            case "night_playerCheck":
-                if(isFirstNight) {
-                    gamePhase = "night_roleRotate";
-                }else{
-                    gamePhase = "night_roleCheck";
-                }
-                break;
-            case "night_roleRotate":
-                gamePhase = "night_roleCheck";
-                break;
-            case "night_roleCheck":
-                if(GameScene.playerArray.get(nowPlayer).get("roleId") == Utility.Role.Seer){
-                    gamePhase = "Seer";
-                }else {
-                    gamePhase = "nextPlayer";
-                }
-                break;
-            case "Seer":
-                gamePhase = "nextPlayer";
-                break;
-            case "nextPlayer":
-                //TODO 最大人数いれる
-                nowPlayer++;
-                while (nowPlayer < playerArray.size() && (boolean) playerArray.get(nowPlayer).get("isLive") == false) {
-                    nowPlayer++;
-                }
-                if (nowPlayer < playerArray.size()){
-                    gamePhase = "night_playerCheck";
+            case "night_action":
 
-                }else {
-                    gamePhase = "afternoon_opening";
-                    isFirstNight = false;
-                    sumWolfkill();
-                    day++;
-                }
+                gamePhase = "morning";
                 break;
-            case "afternoon_opening":
+            case "morning":
                 if(isFinish() == 0) {
-                    gamePhase = "afternoon_opening2";
+                    gamePhase = "afternoon_meeting";
                 }else{
                     gamePhase = "gameover";
                 }
                 break;
-            case "afternoon_opening2":
-                gamePhase = "afternoon_meeting";
-                break;
             case "afternoon_meeting":
                 setListAdapter(-1);
-                gamePhase = "afternoon_voting";
+                gamePhase = "evening_voting";
                 break;
-            case "afternoon_voting":
+            case "evening_voting":
                 gamePhase = "excution";
                 break;
             case "excution":
@@ -529,12 +486,12 @@ public class GameScene extends Activity {
             case "winner":
                 gamePhase = "ending";
                 break;
-            case "ending":
-                initBackground();
-                GameScene.editText.setVisibility(View.VISIBLE);
-                drawListView(true);
-                gamePhase = "player_setting";
-                break;
+//            case "ending":
+//                initBackground();
+//                GameScene.editText.setVisibility(View.VISIBLE);
+//                drawListView(true);
+//                gamePhase = "player_setting";
+//                break;
             default:
                 break;
         }
@@ -557,7 +514,7 @@ public class GameScene extends Activity {
                 nightPhase = "villager";
                 break;
             case "villager":
-                gamePhase = "night_action"; // 村人が終わったらアクションに移る
+                goNextPhase();
                 // TODO refresh
                 break;
         }
