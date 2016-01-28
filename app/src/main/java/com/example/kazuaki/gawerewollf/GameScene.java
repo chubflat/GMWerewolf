@@ -36,6 +36,7 @@ public class GameScene extends Activity {
     //    public static String victim;
     public static ArrayList<Integer> victimArray;//夜間犠牲者リスト
     public static List<Map<String,Object>> playerArray;
+    public static ArrayList<String>  playerNameArray = SettingScene.listArray;
 
     public static int nowPlayer;//今端末を操作しているプレイヤー
     public static ListView listView;//リストビュー
@@ -156,8 +157,8 @@ public class GameScene extends Activity {
     }
 
 
-        @Override
-        public boolean onTouchEvent(MotionEvent event){
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
 
 
             String dialogText = "dialogText";
@@ -167,7 +168,7 @@ public class GameScene extends Activity {
 
                 switch (dialogPattern){
                     case "sendLine":
-                        dialogText = "LINEに投稿しますか？";
+                        dialogText = "LINEに投稿します";
                         break;
                     case "next":
                         dialogText = "次の役職に移ります";
@@ -209,6 +210,7 @@ public class GameScene extends Activity {
                         });
                 builder.show();
             }
+            onDialog = false;
 
             return true;
         }
@@ -311,14 +313,10 @@ public class GameScene extends Activity {
     }
 
     public static ArrayList<Integer> roleArray;
+    public static ArrayList<ArrayList<String>> rolePlayerArray;
 
     public static void setRole(){
         Map<String, Object> playerMap;
-        //TODO EditText作成時
-        ArrayList<String> playerName = new ArrayList<>();
-        for(int i=0;i<prePlayerList.size();i++){
-            playerName.add(prePlayerList.get(i));
-        }
 
         ArrayList<Utility.Role> fixedRoleArray = new ArrayList<>();
         //TODO 役職追加時
@@ -326,7 +324,7 @@ public class GameScene extends Activity {
 //        = new ArrayList<>(Arrays.asList(2,2,1,1,1,1));// 村狼占霊狂狩
 
         // デフォルトの場合
-        switch (playerName.size()){
+        switch (playerNameArray.size()){
             case 1:
                 roleArray = new ArrayList<>(Arrays.asList(1,0,0,0,0,0));
                 break;
@@ -373,22 +371,31 @@ public class GameScene extends Activity {
 
             for(int j=0;j<roleArray.get(i);j++){
                 fixedRoleArray.add((Utility.Role.values()[i]));
-//                fixedRoleArray.add(Utility.Role.Villager);
             }
         }
         Collections.shuffle(fixedRoleArray);
-//        Log.d("fixedRoleArray.size()","fixedRoleArray.size()="+fixedRoleArray.size());
 
-        playerArray = new ArrayList<>();
-        for(int i=0;i<playerName.size();i++) {
+        playerArray = new ArrayList<>();//プレイヤーの情報
+        for(int i=0;i<playerNameArray.size();i++) {
             playerMap = new HashMap<>();
             playerMap.put("playerId", i);
-            playerMap.put("name", playerName.get(i));
+            playerMap.put("name", playerNameArray.get(i));
             playerMap.put("isLive",true);
             playerMap.put("roleId",fixedRoleArray.get(i));
 
             playerArray.add(playerMap);
         }
+
+        // 各役職の名前を持つ配列を生成
+        rolePlayerArray = new ArrayList<>();
+        for(int i = 0;i<playerNameArray.size();i++){
+            //村狼占霊狂狩
+            rolePlayerArray.get((int)playerArray.get(i).get("roleId")).add((String)playerArray.get(i).get("name"));
+        }
+//        playerArray.get(nowPlayer).get("roleId") == Utility.Role.Werewolf
+
+
+
         wolfkillArray = new ArrayList<>();
         for(int i =0;i<playerArray.size();i++){
             ArrayList<Integer> array = new ArrayList<>();

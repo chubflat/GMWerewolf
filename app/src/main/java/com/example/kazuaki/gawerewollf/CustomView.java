@@ -146,8 +146,6 @@ public class CustomView extends View {
         paint.setTextSize(textSize);
         paint.setColor(Color.BLACK);
 
-
-
         int button1H = height * 82 / 100;//TODO ボタン位置変更時
         int button2H = button1H - height * 13/100;
         int button3H = button2H - height * 13/100;
@@ -307,6 +305,8 @@ public class CustomView extends View {
                     backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.night,bitmapWidth,bitmapHeight);
                     canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 
+                    canvas.drawBitmap(frameImg, null, new Rect(width / 10, height * 2 / 10, width * 9 / 10, height * 5 / 10), paint);//width 1/10~9/10,height 2/10~5/10
+
                     if(isFirstNight){
                         switch (nightPhase){
                             case "werewolf":
@@ -314,7 +314,7 @@ public class CustomView extends View {
 
                                 break;
                             case "seer":
-                                lineText = "あなたは占い師です。";
+//                                lineText = String.format("予言者は「%s」さんです。%s","",(String) Utility.getRoleInfo((Utility.Role) GameScene.playerArray.get(nowPlayer).get("roleId")).get("explain"));
                                 break;
                             case "medium":
                                 lineText = "あなたは霊媒師です。";
@@ -592,15 +592,16 @@ public class CustomView extends View {
                     switch (gamePhase){
                         case "set_role":
                             if(rectButton3.contains((int) pointX, (int) pointY)){ //自動設定
+                                GameScene.setRole();
                                 GameScene.gamePhase = "night_opening";
 
                             }
                             break;
                         case "night_opening":
-                            if(rectButton3.contains((int) pointX, (int) pointY)){ //自動設定
+                            if(rectButton3.contains((int) pointX, (int) pointY)){ //LINE投稿
                                 setDialog("sendLine");
 
-                            }else if(confirmButtonRect.contains((int) pointX, (int) pointY)){ //自動設定
+                            }else if(confirmButtonRect.contains((int) pointX, (int) pointY)){ //次へ
                                 setDialog("next");
 
                         }
