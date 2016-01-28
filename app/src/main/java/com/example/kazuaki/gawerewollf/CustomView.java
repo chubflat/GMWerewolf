@@ -614,7 +614,7 @@ public class CustomView extends View {
                         case "morning":
                         case "afternoon_meeting":
                             if(confirmButtonRect.contains((int) pointX, (int) pointY)){ //自動設定
-                                
+                                GameScene.goNextPhase();
 
                             }
                         case "evening_voting":

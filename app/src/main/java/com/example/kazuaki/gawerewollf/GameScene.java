@@ -461,11 +461,11 @@ public class GameScene extends Activity {
                 gamePhase = "morning";
                 break;
             case "morning":
-                if(isFinish() == 0) {
+//                if(isFinish() == 0) {
                     gamePhase = "afternoon_meeting";
-                }else{
-                    gamePhase = "gameover";
-                }
+//                }else{
+//                    gamePhase = "gameover";
+//                }
                 break;
             case "afternoon_meeting":
                 setListAdapter(-1);
