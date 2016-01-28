@@ -377,34 +377,35 @@ public class CustomView extends View {
 
                 case "morning":
                     // background
-                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.evening,bitmapWidth,bitmapHeight);
+                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.afternoon,bitmapWidth,bitmapHeight);
                     canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 
-                    canvas.drawBitmap(roleImg,null,roleCardRect,paint);
-                    canvas.drawBitmap(timerFrameImg,null,timerRect,paint);
-                    Rect morningFrameRect = new Rect(width * 15 / 100,height * 40 / 100,width * 85 / 100 ,height * 60 / 100);
-                    canvas.drawBitmap(frameImg,null,morningFrameRect,paint);
-
-                    //TODO Text表示
-
+//                    if(GameScene.victimArray.size() == 0){
+//                        text = String.format("%d日目の朝になりました。昨晩の犠牲者はいませんでした。",day);
+//                    }else {
+//                        text = String.format("%d日目の朝になりました。昨晩の犠牲者は、「%s」さんでした。", day, (String) GameScene.playerArray.get(GameScene.victimArray.get(0)).get("name"));
+//                    }
+//                    break;
                     // confirm button
                     canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
                     canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
-
 
                     break;
                 case "afternoon_meeting":
                     // background
-                    backgroundImg = decodeSampledBitmapFromResource(getResources(), R.drawable.afternoon, width, height);
+                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.afternoon,bitmapWidth,bitmapHeight);
                     canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 
-                    roleImg = decodeSampledBitmapFromResource(getResources(),R.drawable.back_card,bitmapWidth,bitmapHeight);
-                    canvas.drawBitmap(roleImg,null,roleCardRect,paint);
-                    canvas.drawBitmap(timerFrameImg,null,timerRect,paint);
-
+//                    if(GameScene.victimArray.size() == 0){
+//                        text = String.format("%d日目の朝になりました。昨晩の犠牲者はいませんでした。",day);
+//                    }else {
+//                        text = String.format("%d日目の朝になりました。昨晩の犠牲者は、「%s」さんでした。", day, (String) GameScene.playerArray.get(GameScene.victimArray.get(0)).get("name"));
+//                    }
+//                    break;
                     // confirm button
                     canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
                     canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
+
 
                     break;
                 case "evening_voting":
@@ -413,10 +414,13 @@ public class CustomView extends View {
                     canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
 
                     // TODO List表示
+                    backgroundImg = BitmapFactory.decodeResource(getResources(), R.drawable.evening);
+//                    text = "日が暮れて今日も1人処刑者を決めなければなりません。投票を行い、処刑者を決定してください。同票の場合は決選投票を行い、3回続けても変更がない場合は引き分けとなります。";
+                    GameScene.drawListView(true);
 
-                    // confirm button
-                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
-                    canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
+//                    // confirm button
+//                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
+//                    canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
 
                     break;
                 case "excution":
@@ -606,6 +610,14 @@ public class CustomView extends View {
                                 setDialog("finish_night");
 
                             }
+                            break;
+                        case "morning":
+                        case "afternoon_meeting":
+                            if(confirmButtonRect.contains((int) pointX, (int) pointY)){ //自動設定
+                                
+
+                            }
+                        case "evening_voting":
                         default:
                             break;
                     }
