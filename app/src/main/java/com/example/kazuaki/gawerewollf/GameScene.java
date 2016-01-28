@@ -390,21 +390,27 @@ public class GameScene extends Activity {
         rolePlayerArray = new ArrayList<>();
         for(int i = 0;i<playerNameArray.size();i++){
             //村狼占霊狂狩
-            rolePlayerArray.get((int)playerArray.get(i).get("roleId")).add((String)playerArray.get(i).get("name"));
+            rolePlayerArray.get((int)playerArray.get(i).get("roleId")).add((String) playerArray.get(i).get("name"));
         }
 //        playerArray.get(nowPlayer).get("roleId") == Utility.Role.Werewolf
 
-
-
-        wolfkillArray = new ArrayList<>();
-        for(int i =0;i<playerArray.size();i++){
-            ArrayList<Integer> array = new ArrayList<>();
-            for(int j = 0;j<3;j++){
-                array.add(0);
-            }
-            wolfkillArray.add(array);
-        }
+//        wolfkillArray = new ArrayList<>();
+//        for(int i =0;i<playerArray.size();i++){
+//            ArrayList<Integer> array = new ArrayList<>();
+//            for(int j = 0;j<3;j++){
+//                array.add(0);
+//            }
+//            wolfkillArray.add(array);
+//        }
 //        victimArray = new ArrayList<Integer>();
+    }
+    public static String getRoleArray(int role){
+        String textRole = "";
+
+        for(int i = 0;i<rolePlayerArray.get(role).size();i++){
+            textRole = textRole + rolePlayerArray.get(role).get(i);
+        }
+        return textRole;
     }
 
     public void setBackground(){
@@ -457,9 +463,11 @@ public class GameScene extends Activity {
         drawListView(false);
         switch (gamePhase){
             case "set_role":
-                gamePhase = "night_opening";
+                gamePhase = "role_check";
                 day = 1;
                 break;
+            case "role_check":
+                gamePhase = "night_opening";
             case "night_opening":
                 gamePhase = "night_action";
                 break;

@@ -301,6 +301,29 @@ public class CustomView extends View {
 
                     break;
 
+                case "role_check":
+                    backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.night,bitmapWidth,bitmapHeight);
+                    canvas.drawBitmap(backgroundImg, null, backgroundRect, paint);
+
+                    canvas.drawBitmap(frameImg, null, new Rect(width / 10, height * 2 / 10, width * 9 / 10, height * 5 / 10), paint);//width 1/10~9/10,height 2/10~5/10
+
+                    String text;
+
+                    text = String.format("プレイヤー数は%d人です。\n" + "村人：%s\n" + "人狼：%s\n" +"予言者：%s\n" + "霊媒師：%s\n" + "狂人：%s\n" +"狩人：%s\n",GameScene.playerNameArray.size(),GameScene.getRoleArray(0),GameScene.getRoleArray(1),GameScene.getRoleArray(2),GameScene.getRoleArray(3),GameScene.getRoleArray(4),GameScene.getRoleArray(5));
+
+                    TextPaint mTextPaint = new TextPaint();
+                    mTextPaint.setTextSize(textSize);
+                    StaticLayout mTextLayout = new StaticLayout(text,mTextPaint,width*3/5, Layout.Alignment.ALIGN_NORMAL,1.0f,0.0f,false);
+                    canvas.translate(width * 2 / 10, height * 25 / 100);//text の左上座標の指定
+
+                    mTextLayout.draw(canvas);
+                    canvas.restore();
+
+                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
+                    canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
+
+                    break;
+
                 case "night_opening":
                     backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.night,bitmapWidth,bitmapHeight);
                     canvas.drawBitmap(backgroundImg,null,backgroundRect,paint);
@@ -593,10 +616,17 @@ public class CustomView extends View {
                         case "set_role":
                             if(rectButton3.contains((int) pointX, (int) pointY)){ //自動設定
                                 GameScene.setRole();
-                                GameScene.gamePhase = "night_opening";
+                                GameScene.gamePhase = "role_check";
 
                             }
                             break;
+                        case "role_check":
+                            if(rectButton3.contains((int) pointX, (int) pointY)) {
+                                GameScene.gamePhase = "role_check";
+                                GameScene.gamePhase = "night_opening";
+                            }
+                            break;
+
                         case "night_opening":
                             if(rectButton3.contains((int) pointX, (int) pointY)){ //LINE投稿
                                 setDialog("sendLine");
