@@ -311,7 +311,7 @@ public class CustomView extends View {
                     String text;
 
 //                    text = String.format("プレイヤー数は%d人です。\n" + "村人：%s\n" + "人狼：%s\n" +"予言者：%s\n" + "霊媒師：%s\n" + "狂人：%s\n" +"狩人：%s\n",GameScene.playerNameArray.size(),GameScene.getRoleArray(0),GameScene.getRoleArray(1),GameScene.getRoleArray(2),GameScene.getRoleArray(3),GameScene.getRoleArray(4),GameScene.getRoleArray(5));
-                    text = String.format("プレイヤー数は%d人です。\n" + "村人：%s\n",GameScene.playerNameArray.size(),GameScene.getRoleArray(0));
+                    text = String.format("プレイヤー数は%d人です。\n" + "村人：%s\n",GameScene.playerNameArray.size(),GameScene.rolePlayerArray.get(0).get(0));
 
                     TextPaint mTextPaint = new TextPaint();
                     mTextPaint.setTextSize(textSize);

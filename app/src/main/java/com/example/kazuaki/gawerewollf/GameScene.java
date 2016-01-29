@@ -385,17 +385,24 @@ public class GameScene extends Activity {
 
             playerArray.add(playerMap);
         }
+        Log.d("playerArray","playerarray=");
 
         // 各役職の名前を持つ配列を生成
         rolePlayerArray = new ArrayList<>();
 
         for(int i = 0;i<roleArray.size();i++){
+            Log.d("aaa","aaa=");
             ArrayList<String> array = new ArrayList<>();
+            Log.d("bbb","bbb=");
             for(int j = 0;j<playerNameArray.size();j++){
-                if(playerArray.get(j).get("roleId") == i){
+                Log.d("ccc","ccc=");
+                if(playerArray.get(j).get("roleId") == Utility.Role.values()[i]){
+                    Log.d("ddd","ddd=");
                     array.add((String) playerArray.get(j).get("name"));
+                    Log.d("eee","eee=");
                 }
             }
+            Log.d("role","role=");
             rolePlayerArray.add(array);
         }
 
@@ -413,7 +420,7 @@ public class GameScene extends Activity {
         String textRole = "";
 
         for(int i = 0;i<rolePlayerArray.get(role).size();i++){
-            textRole = textRole + rolePlayerArray.get(role).get(i) + "\n";
+            textRole = textRole + (String)rolePlayerArray.get(role).get(i) + "\n";
         }
         return textRole;
     }
