@@ -305,22 +305,23 @@ public class CustomView extends View {
                     backgroundImg = decodeSampledBitmapFromResource(getResources(),R.drawable.night,bitmapWidth,bitmapHeight);
                     canvas.drawBitmap(backgroundImg, null, backgroundRect, paint);
 
-                    canvas.drawBitmap(frameImg, null, new Rect(width / 10, height * 2 / 10, width * 9 / 10, height * 5 / 10), paint);//width 1/10~9/10,height 2/10~5/10
-
+                    canvas.drawBitmap(frameImg, null, new Rect(width / 10, height * 1 / 10, width * 9 / 10, height * 8 / 10), paint);//width 1/10~9/10,height 2/10~5/10
+                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
+                    canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
                     String text;
 
-                    text = String.format("プレイヤー数は%d人です。\n" + "村人：%s\n" + "人狼：%s\n" +"予言者：%s\n" + "霊媒師：%s\n" + "狂人：%s\n" +"狩人：%s\n",GameScene.playerNameArray.size(),GameScene.getRoleArray(0),GameScene.getRoleArray(1),GameScene.getRoleArray(2),GameScene.getRoleArray(3),GameScene.getRoleArray(4),GameScene.getRoleArray(5));
+//                    text = String.format("プレイヤー数は%d人です。\n" + "村人：%s\n" + "人狼：%s\n" +"予言者：%s\n" + "霊媒師：%s\n" + "狂人：%s\n" +"狩人：%s\n",GameScene.playerNameArray.size(),GameScene.getRoleArray(0),GameScene.getRoleArray(1),GameScene.getRoleArray(2),GameScene.getRoleArray(3),GameScene.getRoleArray(4),GameScene.getRoleArray(5));
+                    text = String.format("プレイヤー数は%d人です。\n" + "村人：%s\n",GameScene.playerNameArray.size(),GameScene.getRoleArray(0));
 
                     TextPaint mTextPaint = new TextPaint();
                     mTextPaint.setTextSize(textSize);
-                    StaticLayout mTextLayout = new StaticLayout(text,mTextPaint,width*3/5, Layout.Alignment.ALIGN_NORMAL,1.0f,0.0f,false);
+                    StaticLayout mTextLayout = new StaticLayout(text,mTextPaint,width*3/5, Layout.Alignment.ALIGN_NORMAL, 1.0f,0.0f,false);
                     canvas.translate(width * 2 / 10, height * 25 / 100);//text の左上座標の指定
 
                     mTextLayout.draw(canvas);
                     canvas.restore();
 
-                    canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
-                    canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
+
 
                     break;
 

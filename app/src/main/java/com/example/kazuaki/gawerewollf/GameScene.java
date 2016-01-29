@@ -388,11 +388,16 @@ public class GameScene extends Activity {
 
         // 各役職の名前を持つ配列を生成
         rolePlayerArray = new ArrayList<>();
-        for(int i = 0;i<playerNameArray.size();i++){
-            //村狼占霊狂狩
-            rolePlayerArray.get((int)playerArray.get(i).get("roleId")).add((String) playerArray.get(i).get("name"));
+
+        for(int i = 0;i<roleArray.size();i++){
+            ArrayList<String> array = new ArrayList<>();
+            for(int j = 0;j<playerNameArray.size();j++){
+                if(playerArray.get(j).get("roleId") == i){
+                    array.add((String) playerArray.get(j).get("name"));
+                }
+            }
+            rolePlayerArray.add(array);
         }
-//        playerArray.get(nowPlayer).get("roleId") == Utility.Role.Werewolf
 
 //        wolfkillArray = new ArrayList<>();
 //        for(int i =0;i<playerArray.size();i++){
@@ -408,7 +413,7 @@ public class GameScene extends Activity {
         String textRole = "";
 
         for(int i = 0;i<rolePlayerArray.get(role).size();i++){
-            textRole = textRole + rolePlayerArray.get(role).get(i);
+            textRole = textRole + rolePlayerArray.get(role).get(i) + "\n";
         }
         return textRole;
     }
