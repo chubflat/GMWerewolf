@@ -36,11 +36,10 @@ public class GameScene extends Activity {
     //    public static String victim;
     public static ArrayList<Integer> victimArray;//夜間犠牲者リスト
     public static List<Map<String,Object>> playerArray;
-    public static ArrayList<String>  playerNameArray = SettingScene.listArray;
+    public static ArrayList<String>  playerNameArray = SettingScene.playerNameArray;
 
     public static int nowPlayer;//今端末を操作しているプレイヤー
     public static ListView listView;//リストビュー
-    public static EditText editText;//名前入力用
     public static int selectedPlayerId;//リストで選択されたプレイヤーID
     public static int mediumId;//昼に処刑されたプレイヤーのID
     public static int bodyguardId;//狩人が守ったプレイヤーのID
@@ -48,7 +47,6 @@ public class GameScene extends Activity {
     public static SimpleAdapter adapter;
     public static boolean isFirstNight;//初日フラグ
     public static ArrayList<ArrayList<Integer>> wolfkillArray;
-    public static ArrayList<String> prePlayerList;//参加者リスト
     public static CustomView customView;
 
     public static boolean isGameScene = true;
@@ -87,18 +85,6 @@ public class GameScene extends Activity {
         customView = new CustomView(this);
         layout.addView(customView);
 
-        //EditText
-//        editText = new EditText(this);
-//        LayoutParams editLP = new LayoutParams(customView.width,customView.height/10);
-//        editLP.gravity = Gravity.BOTTOM;
-//        editLP.bottomMargin = customView.height*45/100;
-
-//        prePlayerList = new ArrayList<>();
-//
-//        editText.setLayoutParams(editLP);
-//        editText.setBackgroundColor(Color.WHITE);
-//
-//        layout.addView(editText);
 
         // ListView add
         listView = new ListView(this);

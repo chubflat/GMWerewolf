@@ -43,7 +43,13 @@ public class SettingScene extends Activity {
     public static ListView playerListView;
     public static SimpleAdapter adapter;
     public static List<Map<String,String>> listInfoDicArray;//リスト情報のMap
-    public static ArrayList<String> listArray;
+    public static ArrayList<String> playerNameArray;
+
+    public static ListView roleListView;
+    public static SimpleAdapter roleAdapter;
+    public static List<Map<String,String>> roleSettingInfoArray;
+    public static ArrayList<String> roleSettingArray;
+
 
     public static int selectedPlayerId;
 
@@ -70,8 +76,9 @@ public class SettingScene extends Activity {
         customView = new CustomView(this);
         layout.addView(customView);
 
+        // 参加プレイヤー用リスト
         playerListView = new ListView(this);
-        listArray = new ArrayList<>();
+        playerNameArray = new ArrayList<>();
 
         FrameLayout.LayoutParams centerListLp = new FrameLayout.LayoutParams(customView.width,customView.height*4/10);
         centerListLp.gravity = Gravity.TOP;
@@ -138,13 +145,13 @@ public class SettingScene extends Activity {
                                 onDialog = false;
                                 listInfoDicArray.remove(selectedPlayerId);
 
-                                listArray.clear();
+                                playerNameArray.clear();
                                 listInfoDicArray.clear();
 
-                                for (int i = 0; i < listArray.size(); i++) {
+                                for (int i = 0; i < playerNameArray.size(); i++) {
 
                                     Map<String,String> conMap = new HashMap<>();
-                                    conMap.put("name",listArray.get(i));
+                                    conMap.put("name",playerNameArray.get(i));
                                     conMap.put("listSecondInfo","");
                                     listInfoDicArray.add(conMap);
                                 }
@@ -165,6 +172,60 @@ public class SettingScene extends Activity {
         });
 
         layout.addView(playerListView);
+
+//        // 配役設定用
+//        roleListView = new ListView(this);
+//        roleSettingArray = new ArrayList<>();
+//
+////        FrameLayout.LayoutParams centerListLp = new FrameLayout.LayoutParams(customView.width,customView.height*4/10);
+//        centerListLp.gravity = Gravity.TOP;
+//        centerListLp.topMargin = customView.height * 20 / 100;
+//
+//        roleListView.setLayoutParams(centerListLp);
+//        roleSettingInfoArray = new ArrayList<Map<String,String>>();
+//
+//        roleAdapter = new SimpleAdapter(this,roleSettingInfoArray,android.R.layout.simple_list_item_2,new String[]{"role","volume"},new int[]{android.R.id.text1,android.R.id.text2});
+//
+//        playerListView.setAdapter(roleAdapter);
+//        playerListView.setBackgroundColor(Color.WHITE);
+//        playerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//            }
+////                if (phase.equals("player_setting")) {
+////                    selectedPlayerId = -2;
+////                } else {
+////                    selectedPlayerId = listPlayerIdArray.get(position);
+////                }
+////
+////                if (phase.equals("player_setting")) {
+////
+////                }
+////                else {
+////                    if (nowPlayer < playerArray.size() && playerArray.get(nowPlayer).get("roleId") == Utility.Role.Werewolf) {
+////                        if (isFirstNight) {//人狼：初日の夜はタッチできない
+////                            if (selectedPlayerId == -1) {
+////                                goNextPhase();
+////                                customView.invalidate();
+////                            }
+////
+////                        } else {// 人狼：2日目以降タッチされたplayerIdを渡して再描画
+////                            wolfkill(selectedPlayerId, 0);
+////                            goNextPhase();
+////                            customView.invalidate();
+////                        }
+////                    } else if (nowPlayer < playerArray.size() && playerArray.get(nowPlayer).get("roleId") == Utility.Role.Bodyguard) {
+////                        bodyguardId = selectedPlayerId;
+////                        goNextPhase();
+////                        customView.invalidate();
+////                    } else {
+////                        goNextPhase();
+////                        customView.invalidate();
+////                    }
+////                }
+////            }
+//
+//        });
 
     }
 
@@ -211,15 +272,15 @@ public class SettingScene extends Activity {
 
                                        String text = addPlayerView.getText().toString();
                                        if(!(text.equals(""))){
-                                           listArray.add(text);
+                                           playerNameArray.add(text);
                                        }
 
                                        listInfoDicArray.clear();
 
-                                       for (int i = 0; i < listArray.size(); i++) {
+                                       for (int i = 0; i < playerNameArray.size(); i++) {
 
                                            Map<String,String> conMap = new HashMap<>();
-                                           conMap.put("name",listArray.get(i));
+                                           conMap.put("name",playerNameArray.get(i));
                                            conMap.put("listSecondInfo","");
                                            listInfoDicArray.add(conMap);
                                        }
@@ -271,6 +332,50 @@ public class SettingScene extends Activity {
                                            });
                                    builder.show();
                    }
+//                   else if(dialogPattern.equals("roleVolume")){
+//                       ArrayList<Integer> roleVolume = new ArrayList<>();
+//                       for(int i = 0;i<playerNameArray.size();i++){
+//                           roleVolume.add(i);
+//                       }
+//                       builder.setTitle("人数を選択してください")
+//                               //setViewにてビューを設定
+//                               .setSingleChoiceItems(roleVolume,0,mClickListerner)
+//                               .setPositiveButton("追加", new DialogInterface.OnClickListener() {
+//                                   @Override
+//                                   public void onClick(DialogInterface dialog, int which) {
+////                                       Toast.makeText(SettingScene.this, addPlayerView.getText().toString(), Toast.LENGTH_LONG).show();
+//
+//                                       String text = addPlayerView.getText().toString();
+//                                       if (!(text.equals(""))) {
+//                                           playerNameArray.add(text);
+//                                       }
+//
+//                                       listInfoDicArray.clear();
+//
+//                                       for (int i = 0; i < playerNameArray.size(); i++) {
+//
+//                                           Map<String, String> conMap = new HashMap<>();
+//                                           conMap.put("name", playerNameArray.get(i));
+//                                           conMap.put("listSecondInfo", "");
+//                                           listInfoDicArray.add(conMap);
+//                                       }
+//
+//                                       playerListView.invalidateViews();
+////                                       // 中身クリア
+////                                       GameScene.editText.getEditableText().clear();
+//                                   }
+//                               })
+//                               .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
+//                                   @Override
+//                                   public void onClick(DialogInterface dialog, int which) {
+//
+//                                   }
+//                               })
+//                               .show();
+//
+//                       dialogPattern = "";
+//
+//                   }
                }
        return true;
    }

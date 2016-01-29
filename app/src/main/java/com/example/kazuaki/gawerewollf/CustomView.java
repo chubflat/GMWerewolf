@@ -30,7 +30,7 @@ import java.util.Map;
  */
 public class CustomView extends View {
 
-    //TODO Bitmap宣言
+    // Bitmap宣言
     private Bitmap backgroundImg = null;
     private Bitmap roleImg = null;
     private Bitmap frameImg = null;
@@ -38,7 +38,7 @@ public class CustomView extends View {
     private Bitmap buttonImg = null;
     private Bitmap backCard = null;
 
-    //TODO サイズ取得用
+    // サイズ取得用
     public static int width;
     public static int height;
 
@@ -192,7 +192,7 @@ public class CustomView extends View {
                     canvas.drawBitmap(buttonImg,null,rectButton5,paint);
                     canvas.drawText("役職説明", width / 4, button5H + height * 6/100,paint);
                     //プレイヤー数表示
-                    playerVolume = String.format("プレイヤー数：%d人",SettingScene.listArray.size());
+                    playerVolume = String.format("プレイヤー数：%d人", SettingScene.playerNameArray.size());
                     paint.setColor(Color.WHITE);
                     textSize = (float)height * 6 / 100;
                     paint.setTextSize(textSize);
@@ -238,7 +238,7 @@ public class CustomView extends View {
                     canvas.drawBitmap(buttonImg,null,rectButton2, paint);
                     canvas.drawText("推奨設定", width / 4, button2H + height * 6 / 100, paint);
                     //プレイヤー数表示
-                    playerVolume = String.format("プレイヤー数：%d人",SettingScene.listArray.size());
+                    playerVolume = String.format("プレイヤー数：%d人", SettingScene.playerNameArray.size());
                     paint.setColor(Color.WHITE);
                     textSize = (float)height * 6 / 100;
                     paint.setTextSize(textSize);
@@ -257,7 +257,7 @@ public class CustomView extends View {
                     canvas.drawBitmap(buttonImg,null,rectButton2, paint);
                     canvas.drawText("プレイヤー追加", width / 4, button2H + height * 6 / 100, paint);
                     //プレイヤー数表示
-                    playerVolume = String.format("プレイヤー数：%d人", SettingScene.listArray.size());// TODO 人数表示
+                    playerVolume = String.format("プレイヤー数：%d人", SettingScene.playerNameArray.size());// TODO 人数表示
                     paint.setColor(Color.WHITE);
                     textSize = (float)height * 6 / 100;
                     paint.setTextSize(textSize);
@@ -283,6 +283,7 @@ public class CustomView extends View {
             canvas.drawBitmap(backgroundImg, null, backgroundRect, paint);
 
             GameScene.drawListView(false);
+            String text = "";
 
             switch (gamePhase){
 
@@ -308,20 +309,7 @@ public class CustomView extends View {
                     canvas.drawBitmap(frameImg, null, new Rect(width / 10, height * 1 / 10, width * 9 / 10, height * 8 / 10), paint);//width 1/10~9/10,height 2/10~5/10
                     canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
                     canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
-                    String text;
-
 //                    text = String.format("プレイヤー数は%d人です。\n" + "村人：%s\n" + "人狼：%s\n" +"予言者：%s\n" + "霊媒師：%s\n" + "狂人：%s\n" +"狩人：%s\n",GameScene.playerNameArray.size(),GameScene.getRoleArray(0),GameScene.getRoleArray(1),GameScene.getRoleArray(2),GameScene.getRoleArray(3),GameScene.getRoleArray(4),GameScene.getRoleArray(5));
-                    text = String.format("プレイヤー数は%d人です。\n" + "村人：%s\n",GameScene.playerNameArray.size(),GameScene.rolePlayerArray.get(0).get(0));
-
-                    TextPaint mTextPaint = new TextPaint();
-                    mTextPaint.setTextSize(textSize);
-                    StaticLayout mTextLayout = new StaticLayout(text,mTextPaint,width*3/5, Layout.Alignment.ALIGN_NORMAL, 1.0f,0.0f,false);
-                    canvas.translate(width * 2 / 10, height * 25 / 100);//text の左上座標の指定
-
-                    mTextLayout.draw(canvas);
-                    canvas.restore();
-
-
 
                     break;
 
@@ -335,22 +323,29 @@ public class CustomView extends View {
                         switch (nightPhase){
                             case "werewolf":
                                 lineText = "＜はるき＞さん、＜はせべ＞さん、＜くろき＞さん、は人狼です。仲間を確認してください。";
+                                text = "＜はるき＞さん、＜はせべ＞さん、＜くろき＞さん、は人狼です。仲間を確認してください。";
 
                                 break;
                             case "seer":
 //                                lineText = String.format("予言者は「%s」さんです。%s","",(String) Utility.getRoleInfo((Utility.Role) GameScene.playerArray.get(nowPlayer).get("roleId")).get("explain"));
+                                lineText = "あなたは予言者です。";
+                                text = String.format("予言者は「%s」さんです","test");
                                 break;
                             case "medium":
                                 lineText = "あなたは霊媒師です。";
+                                text = String.format("霊媒師は「%s」さんです","test");
                                 break;
                             case "bodyguard":
                                 lineText = "あなたは狩人です";
+                                text = String.format("狩人は「%s」さんです","test");
                                 break;
                             case "minion":
                                 lineText = "あなたは狂人です";
+                                text = String.format("狂人は「%s」さんです","test");
                                 break;
                             case "villager":
                                 lineText = "あなたは村人です。";
+                                text = String.format("村人は「%s」さんです","test");
                                 break;
                             default:
                                 break;
@@ -370,6 +365,9 @@ public class CustomView extends View {
                     canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
 
                     GameScene.lineText = lineText;
+
+
+
                     break;
 
                 case "night_action":
@@ -470,6 +468,15 @@ public class CustomView extends View {
                 default:
                     break;
             }
+
+
+            TextPaint mTextPaint = new TextPaint();
+            mTextPaint.setTextSize(textSize);
+            StaticLayout mTextLayout = new StaticLayout(text,mTextPaint,width*3/5, Layout.Alignment.ALIGN_NORMAL, 1.0f,0.0f,false);
+            canvas.translate(width * 2 / 10, height * 25 / 100);//text の左上座標の指定
+
+            mTextLayout.draw(canvas);
+            canvas.restore();
         }
 
     }
@@ -622,8 +629,7 @@ public class CustomView extends View {
                             }
                             break;
                         case "role_check":
-                            if(rectButton3.contains((int) pointX, (int) pointY)) {
-                                GameScene.gamePhase = "role_check";
+                            if(confirmButtonRect.contains((int) pointX, (int) pointY)) {
                                 GameScene.gamePhase = "night_opening";
                             }
                             break;
