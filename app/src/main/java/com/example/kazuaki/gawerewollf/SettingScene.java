@@ -80,6 +80,17 @@ public class SettingScene extends Activity {
         playerListView = new ListView(this);
         playerNameArray = new ArrayList<>();
 
+        // test用
+        playerNameArray.add("はせべ");
+        playerNameArray.add("はるき");
+        playerNameArray.add("くろき");
+        playerNameArray.add("きむ");
+        playerNameArray.add("しんぺー");
+        playerNameArray.add("たけし");
+        playerNameArray.add("かっきー");
+        playerNameArray.add("いしまる");
+        //
+
         FrameLayout.LayoutParams centerListLp = new FrameLayout.LayoutParams(customView.width,customView.height*4/10);
         centerListLp.gravity = Gravity.TOP;
         centerListLp.topMargin = customView.height * 20 / 100;

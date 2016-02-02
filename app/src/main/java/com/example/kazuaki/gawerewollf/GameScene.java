@@ -411,7 +411,7 @@ public class GameScene extends Activity {
         String textRole = "";
 
         for(int i = 0;i<rolePlayerArray.get(role).size();i++){
-            textRole = textRole + (String)rolePlayerArray.get(role).get(i) + "\n";
+            textRole = textRole +  (String)rolePlayerArray.get(role).get(i) + "」さん、";
         }
         return textRole;
     }

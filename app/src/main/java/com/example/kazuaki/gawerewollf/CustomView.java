@@ -322,30 +322,30 @@ public class CustomView extends View {
                     if(isFirstNight){
                         switch (nightPhase){
                             case "werewolf":
-                                lineText = "＜はるき＞さん、＜はせべ＞さん、＜くろき＞さん、は人狼です。仲間を確認してください。";
-                                text = "＜はるき＞さん、＜はせべ＞さん、＜くろき＞さん、は人狼です。仲間を確認してください。";
+                                lineText = String.format("%sは人狼です。仲間を確認してください。",GameScene.getRoleArray((int)Utility.getRoleInfo(Utility.Role.Werewolf).get("roleId")));
+                                text = String.format("人狼は%sです",GameScene.getRoleArray((int)Utility.getRoleInfo(Utility.Role.Werewolf).get("roleId")));
 
                                 break;
                             case "seer":
 //                                lineText = String.format("予言者は「%s」さんです。%s","",(String) Utility.getRoleInfo((Utility.Role) GameScene.playerArray.get(nowPlayer).get("roleId")).get("explain"));
                                 lineText = "あなたは予言者です。";
-                                text = String.format("予言者は「%s」さんです","test");
+                                text = String.format("予言者は%sです",GameScene.getRoleArray((int)Utility.getRoleInfo(Utility.Role.Seer).get("roleId")));
                                 break;
                             case "medium":
                                 lineText = "あなたは霊媒師です。";
-                                text = String.format("霊媒師は「%s」さんです","test");
+                                text = String.format("霊媒師は%sです",GameScene.getRoleArray((int)Utility.getRoleInfo(Utility.Role.Medium).get("roleId")));
                                 break;
                             case "bodyguard":
                                 lineText = "あなたは狩人です";
-                                text = String.format("狩人は「%s」さんです","test");
+                                text = String.format("狩人は%sです",GameScene.getRoleArray((int)Utility.getRoleInfo(Utility.Role.Bodyguard).get("roleId")));
                                 break;
                             case "minion":
                                 lineText = "あなたは狂人です";
-                                text = String.format("狂人は「%s」さんです","test");
+                                text = String.format("狂人は%sです",GameScene.getRoleArray((int)Utility.getRoleInfo(Utility.Role.Minion).get("roleId")));
                                 break;
                             case "villager":
                                 lineText = "あなたは村人です。";
-                                text = String.format("村人は「%s」さんです","test");
+                                text = String.format("村人は%sです",GameScene.getRoleArray((int)Utility.getRoleInfo(Utility.Role.Villager).get("roleId")));
                                 break;
                             default:
                                 break;
