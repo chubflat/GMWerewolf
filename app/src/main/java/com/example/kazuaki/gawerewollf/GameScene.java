@@ -354,9 +354,8 @@ public class GameScene extends Activity {
                 break;
         }
         for(int i=0;i<roleArray.size();i++){
-
             for(int j=0;j<roleArray.get(i);j++){
-                fixedRoleArray.add((Utility.Role.values()[i]));
+                fixedRoleArray.add((Utility.Role.values()[i]));//i番目の役職を追加
             }
         }
         Collections.shuffle(fixedRoleArray);
@@ -371,7 +370,7 @@ public class GameScene extends Activity {
 
             playerArray.add(playerMap);
         }
-        Log.d("playerArray","playerarray=");
+        Log.d("playerArray","playerArray=");
 
         // 各役職の名前を持つ配列を生成
         rolePlayerArray = new ArrayList<>();
@@ -382,7 +381,13 @@ public class GameScene extends Activity {
             Log.d("bbb","bbb=");
             for(int j = 0;j<playerNameArray.size();j++){
                 Log.d("ccc","ccc=");
+//                if((int)Utility.getRoleInfo((Utility.Role)playerArray.get(j).get("roleId")).get("roleId") == i){
+//                    Log.d("ddd","ddd=");
+//                    array.add((String)playerArray.get(j).get("name"));
+//                    Log.d("eee","eee=");
+//                }
                 if(playerArray.get(j).get("roleId") == Utility.Role.values()[i]){
+//                    (String) Utility.getRoleInfo((Utility.Role) GameScene.playerArray.get(j).get("roleId")).get("name")
                     Log.d("ddd","ddd=");
                     array.add((String) playerArray.get(j).get("name"));
                     Log.d("eee","eee=");

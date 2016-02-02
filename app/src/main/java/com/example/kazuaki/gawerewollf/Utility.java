@@ -49,6 +49,7 @@ public class Utility{
         int mediumResult = 1;//人狼判定
         int isFinishCount = 1;//人間カウント
         int cardId = R.drawable.card0;
+        int roleId = 0;
 
         //TODO 役職追加時
         switch (role) {
@@ -62,6 +63,7 @@ public class Utility{
                 mediumResult = 1;
                 isFinishCount = 1;
                 cardId = R.drawable.card0;
+                roleId = 0;
                 break;
 
             case Werewolf:
@@ -76,6 +78,7 @@ public class Utility{
                 //tableString = "";//未実装
                 //tableStringFirst = "";//未実装
                 cardId = R.drawable.card1;
+                roleId = 1;
                 break;
 
             case Seer:
@@ -88,6 +91,7 @@ public class Utility{
                 mediumResult = 1;
                 isFinishCount = 1;
                 cardId = R.drawable.card2;
+                roleId = 2;
                 break;
 
             case Medium:
@@ -100,6 +104,7 @@ public class Utility{
                 mediumResult = 1;
                 isFinishCount = 1;
                 cardId = R.drawable.card3;
+                roleId = 3;
                 break;
 
             case Minion:
@@ -111,6 +116,7 @@ public class Utility{
                 mediumResult = 1;
                 isFinishCount = 1;
                 cardId = R.drawable.card4;
+                roleId = 4;
                 break;
 
             case Bodyguard:
@@ -122,6 +128,7 @@ public class Utility{
                 mediumResult = 1;
                 isFinishCount = 1;
                 cardId = R.drawable.card5;
+                roleId = 5;
                 break;
 
             case Fox:
@@ -134,6 +141,7 @@ public class Utility{
                 mediumResult = 1;
                 isFinishCount = 0;
                 cardId = R.drawable.card7;
+//                roleId = 7;
                 break;
 
             case Lycan:
@@ -371,6 +379,7 @@ public class Utility{
         infoDic.put("mediumResult",mediumResult);
         infoDic.put("isFinishCount",isFinishCount);
         infoDic.put("cardId",cardId);
+        infoDic.put("roleId",roleId);
 //        infoDic.put("tableString", tableString);
 //        infoDic.put("tableStringFirst", tableStringFirst);
 

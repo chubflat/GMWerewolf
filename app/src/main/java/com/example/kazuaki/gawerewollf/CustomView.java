@@ -309,7 +309,7 @@ public class CustomView extends View {
                     canvas.drawBitmap(frameImg, null, new Rect(width / 10, height * 1 / 10, width * 9 / 10, height * 8 / 10), paint);//width 1/10~9/10,height 2/10~5/10
                     canvas.drawBitmap(buttonImg, null, confirmButtonRect, paint);
                     canvas.drawText("次へ", width * 25 / 100, height * 85 / 100, paint);
-//                    text = String.format("プレイヤー数は%d人です。\n" + "村人：%s\n" + "人狼：%s\n" +"予言者：%s\n" + "霊媒師：%s\n" + "狂人：%s\n" +"狩人：%s\n",GameScene.playerNameArray.size(),GameScene.getRoleArray(0),GameScene.getRoleArray(1),GameScene.getRoleArray(2),GameScene.getRoleArray(3),GameScene.getRoleArray(4),GameScene.getRoleArray(5));
+                    text = String.format("プレイヤー数は%d人です。\n" + "村人：%s\n" + "人狼：%s\n" +"予言者：%s\n" + "霊媒師：%s\n" + "狂人：%s\n" +"狩人：%s\n",GameScene.playerNameArray.size(),GameScene.getRoleArray(0),GameScene.getRoleArray(1),GameScene.getRoleArray(2),GameScene.getRoleArray(3),GameScene.getRoleArray(4),GameScene.getRoleArray(5));
 
                     break;
 
